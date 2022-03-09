@@ -1,0 +1,67 @@
+{
+	"name": "sfdx-metadata-splitter",
+	"version": "0.0.0",
+	"author": "Ziemniakoss",
+	"bugs": "https://github.com/Ziemniakoss/sfdx-metadata-splitter/issues",
+	"dependencies": {
+		"@oclif/command": "^1",
+		"@oclif/config": "^1",
+		"@oclif/errors": "^1",
+		"@salesforce/command": "^3",
+		"@salesforce/core": "^2",
+		"tslib": "^2",
+		"xml2js": "^0.4.23"
+	},
+	"devDependencies": {
+		"@oclif/dev-cli": "^1",
+		"@oclif/plugin-help": "^3",
+		"@oclif/test": "^1",
+		"@salesforce/dev-config": "^2",
+		"@salesforce/dev-scripts": "^0",
+		"@salesforce/prettier-config": "^0",
+		"@salesforce/ts-sinon": "^1",
+		"@types/chai": "^4",
+		"@types/mocha": "^8",
+		"chai": "^4",
+		"mocha": "^8",
+		"nyc": "^15",
+		"prettier": "^2",
+		"sinon": "10.0.0",
+		"ts-node": "^10",
+		"typescript": "4"
+	},
+	"engines": {
+		"node": ">=12.0.0"
+	},
+	"files": [
+		"/lib",
+		"/messages",
+		"/npm-shrinkwrap.json",
+		"/oclif.manifest.json"
+	],
+	"homepage": "https://github.com/Ziemniakoss/sfdx-metadata-splitter",
+	"keywords": [
+		"sfdx-plugin",
+		"metadata"
+	],
+	"license": "MIT",
+	"oclif": {
+		"commands": "./lib/commands",
+		"bin": "sfdx",
+		"topics": {
+			"metadata": {
+				"description": "Manage metadata"
+			}
+		},
+		"devPlugins": [
+			"@oclif/plugin-help"
+		]
+	},
+	"repository": "Ziemniakoss/sfdx-metadata-splitter",
+	"scripts": {
+		"build": "tsc -p .",
+		"postpack": "rm -f oclif.manifest.json",
+		"prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+		"version": "oclif-dev readme && git add README.md"
+	}
+}

@@ -1,0 +1,25 @@
+name: Release | Patch
+on: workflow_dispatch
+jobs:
+  create-release:
+    name: Create release
+    environment: npm
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: git config --global user.name 'Ziemniakoss' && git config --global user.email 'Ziemniakoss@users.noreply.github.com'
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies and build
+        run: npm ci && npm run build
+      - name: Bump version
+        run: npm version patch
+      - name: Publish package on NPM 📦
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_KEY }}
+      - name: Update git repo
+        run: git push --follow-tags origin HEAD

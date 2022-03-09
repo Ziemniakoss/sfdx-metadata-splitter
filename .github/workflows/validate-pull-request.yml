@@ -1,0 +1,79 @@
+name: "Static analysis and testing"
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+jobs:
+  prettier-validation:
+    runs-on: ubuntu-latest
+    name: Prettier validation
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v2
+      - name: instal dependencies
+        run: npm ci
+      - name: Run prettier
+        run: npx prettier --list-different .
+  code-compilation:
+    runs-on: ubuntu-latest
+    name: Try to compile ts
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v2
+      - name: instal dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Check if prepack will work
+        run: npm run prepack
+#  For now there are no tests
+#  run-tests-on-linux:
+#    runs-on: ubuntu-latest
+#    name: Tests | Linux
+#    needs:
+#      - code-compilation
+#      - prettier-validation
+#    steps:
+#      - name: checkout
+#        uses: actions/checkout@v2
+#      - name: setup node
+#        uses: actions/setup-node@v2
+#      - name: instal dependencies
+#        run: npm ci
+#      - name: Run tests
+#        run: npm test
+#  run-tests-on-mac:
+#    runs-on: macos-latest
+#    name: Tests | MacOS
+#    needs:
+#      - code-compilation
+#      - prettier-validation
+#    steps:
+#      - name: checkout
+#        uses: actions/checkout@v2
+#      - name: setup node
+#        uses: actions/setup-node@v2
+#      - name: instal dependencies
+#        run: npm ci
+#      - name: Run tests
+#        run: npm test
+#  run-tests-on-windows:
+#    runs-on: windows-latest
+#    name: Tests | windows
+#    needs:
+#      - code-compilation
+#      - prettier-validation
+#    steps:
+#      - name: checkout
+#        uses: actions/checkout@v2
+#      - name: setup node
+#        uses: actions/setup-node@v2
+#      - name: instal dependencies
+#        run: npm ci
+#      - name: Run tests
+#        run: npm test
