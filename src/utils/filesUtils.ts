@@ -1,7 +1,8 @@
 import { promises, lstatSync } from "fs";
 import { join } from "path";
-import { parseStringPromise, Builder } from "xml2js";
+import { parseStringPromise } from "xml2js";
 import { SfdxProject } from "@salesforce/core";
+import XmlFormatter from "./xmlFormatter";
 
 const SKIPPED_FOLDERS = ["node_modules", ".git", ".github"];
 
@@ -43,16 +44,9 @@ export async function readXmlFromFile<T>(file: string): Promise<T> {
 export async function writeXmlToFile(
 	file: string,
 	xml: object,
-	indent = "    "
+	xmlFormatter:XmlFormatter
 ) {
-	const builderConfig = {
-		renderOpts: {
-			pretty: true,
-			indent,
-			newLine: "\n",
-		},
-	};
-	return promises.writeFile(file, new Builder(builderConfig).buildObject(xml));
+	return promises.writeFile(file, xmlFormatter.formatXml(xml));
 }
 
 export function getDefaultFolder(project: SfdxProject): string {
