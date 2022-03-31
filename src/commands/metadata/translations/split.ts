@@ -3,9 +3,10 @@ import { Messages } from "@salesforce/core";
 import { PLUGIN_NAME, TRANSLATIONS_EXTENSION } from "../../../constants";
 import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import XmlFormatter from "../../../utils/xmlFormatter";
-import { join } from "path";
+import { join, basename } from "path";
 import { findAllFilesWithExtension, getDefaultFolder } from "../../../utils/filesUtils";
 import TranslationsSplitter from "../../../splitters/TranslationsSplitter";
+import { rmSync } from "fs";
 
 
 Messages.importMessagesDirectory(__dirname);
@@ -39,7 +40,17 @@ export default class SplitTranslations extends SfdxCommand {
 		const inputFiles = await  this.getSourceFiles()
 		const xmlFormatter = XmlFormatter.fromFlags(this.flags)
 		const translationSplitter = new TranslationsSplitter(xmlFormatter)
-		return Promise.all(inputFiles.map(file => translationSplitter.split(file, baseOutputFolder)))
+		this.ux.startSpinner(messages.getMessage("splitting"))
+		for(const file of inputFiles) {
+			const fileName = basename(file)
+			this.ux.setSpinnerStatus(fileName)
+			await translationSplitter.split(file, baseOutputFolder)
+			if(this.flags["remove-input-file"]) {
+				rmSync(file)
+			}
+			this.ux.log(file)
+		}
+		this.ux.stopSpinner(messages.getMessage("done_message"))
 	}
 
 	public async getBaseOutputFolder():Promise<string>{

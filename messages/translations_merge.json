@@ -1,0 +1,8 @@
+{
+  "description": "Merge translations\nMerges translations. Output file name is calculated based on dirs merged",
+  "flag_input": "Directory to merge, by default it will merge all translations in translations folder",
+  "flag_remove": "Remove dirs containing original translations",
+  "example_mergeAll": "# Merge all translations\nsfdx metadata:translations:merge",
+  "example_mergeAllAndRemove": "# Merge all translations and remove source files\nsfdx metadata:translations:merge -r",
+  "example_mergeOnlyOne": "# Merge only translations in one folder\nsfdx metadata:translations:merge -i force-app/main/default/translations/pl"
+}

@@ -22,7 +22,7 @@ export default abstract class Splitter {
 	 * Split metadata into separate files.
 	 * File will be named after all keyFields concentrated with dot.
 	 *
-	 * @param translations raw xml from translations file
+	 * @param xml raw xml
 	 * @param keyFields key fields which combination should be unique for every element in metadata array.
 	 * For example, if we would split CustomLabels, we would use array
 	 * ```
@@ -33,12 +33,12 @@ export default abstract class Splitter {
 	 * @param tagName tag name  which we need to extract
 	 * @protected
 	 */
-	protected async writeSplittedToFiles(translations, keyFields: string[], baseOutputDir: string, fileExtension: string, tagName: string) {
+	protected async writeSplittedToFiles(xml, keyFields: string[], baseOutputDir: string, fileExtension: string, tagName: string) {
 		const outputDir = join(baseOutputDir, tagName)
 		if (!existsSync(outputDir)) {
 			await promises.mkdir(outputDir);
 		}
-		const metadata = translations[tagName] ?? []
+		const metadata = xml[tagName] ?? []
 		const allPromises = [];
 		for (const m of metadata) {
 			let fileName = "";
