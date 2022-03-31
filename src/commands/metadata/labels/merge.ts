@@ -10,6 +10,7 @@ import { compareByField } from "../../../utils/comparators";
 import { join } from "path";
 import { promises } from "fs";
 import { XML_NAMESPACE } from "../../../constants";
+import XmlFormatter from "../../../utils/xmlFormatter";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(
@@ -57,7 +58,11 @@ export default class MergeLabels extends SfdxCommand {
 		if (this.flags.remove) {
 			await this.removeSourceFiles(filesToMerge);
 		}
-		return writeXmlToFile(outputPath, labelsXml);
+		return writeXmlToFile(
+			outputPath,
+			labelsXml,
+			XmlFormatter.fromFlags(this.flags)
+		);
 	}
 
 	private async removeSourceFiles(files) {

@@ -8,6 +8,8 @@ import {
 	readXmlFromFile,
 	writeXmlToFile,
 } from "../../../utils/filesUtils";
+import FORMATTING_FLAGS from "../../../utils/formattingFlags";
+import XmlFormatter from "../../../utils/xmlFormatter";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(
@@ -32,6 +34,7 @@ export default class SplitLabels extends SfdxCommand {
 			description: messages.getMessage("flag_remove"),
 			char: "r",
 		}),
+		...FORMATTING_FLAGS,
 	};
 
 	public async run() {
@@ -60,7 +63,11 @@ export default class SplitLabels extends SfdxCommand {
 				labels: [label],
 			},
 		};
-		return writeXmlToFile(fileName, xmlLabelStructure);
+		return writeXmlToFile(
+			fileName,
+			xmlLabelStructure,
+			XmlFormatter.fromFlags(this.flags)
+		);
 	}
 
 	/**

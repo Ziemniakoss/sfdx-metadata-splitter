@@ -1,0 +1,8 @@
+{
+	"flag_remove": "Remove source translations file",
+	"flag_input": "Translation file to split. By default all translation files will be splitted.",
+	"flag_output": "Output dir. By default it will be folder named after language of translation inside translations folder",
+	"description": "Split translations into multiple files",
+	"splitting": "Splitting translations",
+	"done_message": "Splitted"
+}

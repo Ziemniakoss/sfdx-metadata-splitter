@@ -1,0 +1,6 @@
+{
+	"skipFinalNewLine": "Don't add new line at end of file",
+	"indentSize": "How many indent characters per indent",
+	"indentStyle": "Which char to use as indent",
+	"newLineChar": "Specify new line style:\n- normal: \\n\n- windows:\\r\\n"
+}
