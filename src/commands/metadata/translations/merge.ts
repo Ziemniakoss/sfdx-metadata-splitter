@@ -6,6 +6,7 @@ import TranslationsMerger from "../../../mergers/TranslationsMerger";
 import XmlFormatter from "../../../utils/xmlFormatter";
 import * as path from "path";
 import { rmSync } from "fs";
+import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(
@@ -26,6 +27,7 @@ export default class MergeTranslations extends SfdxCommand {
 			description: messages.getMessage("flag_input"),
 			char: "i",
 		}),
+		...FORMATTING_FLAGS,
 	};
 	public static examples = [
 		messages.getMessage("example_mergeAll"),
