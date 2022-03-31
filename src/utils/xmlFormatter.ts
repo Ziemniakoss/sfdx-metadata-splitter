@@ -41,9 +41,13 @@ export default class XmlFormatter {
 	}
 
 	static fromFlags(flags): XmlFormatter {
-		const indentChar = flags["indent-style"] === "spaces" ? " " : "\t";
+		let indentChar = " ";
+		if (flags["indent-style"]) {
+			indentChar = flags["indent-style"] === "spaces" ? " " : "\t";
+		}
+		const indentSize = flags["indent-size"] ?? 4;
 		return new XmlFormatter({
-			indent: repeat(indentChar, Math.max(0, flags["indent-size"])),
+			indent: repeat(indentChar, Math.max(0, indentSize)),
 			newLineChar: flags["new-line-cha"] == "windows" ? "\r\n" : "\n",
 			skipFinalNewLine: flags["skip-final-new-line"],
 		});

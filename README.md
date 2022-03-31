@@ -18,6 +18,7 @@ sfdx plugins:install sfdx-metadata-splitter
 ### Formatting
 
 You can change how output is formatted by using flags:
+
 - indent-size
 - indent-style
 - new-line-char
@@ -46,11 +47,13 @@ sfdx metadata:labels:merge -r
 Translations have to be merged before converting metadata or deployment.
 
 To split all translations and remove source file
+
 ```
 sfdx metadata:translations:split -r
 ```
 
 To merge them back and remvoe splitted files, use:
+
 ```
 sfdx metadata:translations:merge -r
 ```
