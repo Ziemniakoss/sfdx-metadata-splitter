@@ -34,7 +34,7 @@ export default class SplitLabels extends SfdxCommand {
 			description: messages.getMessage("flag_remove"),
 			char: "r",
 		}),
-		...FORMATTING_FLAGS
+		...FORMATTING_FLAGS,
 	};
 
 	public async run() {
@@ -63,7 +63,11 @@ export default class SplitLabels extends SfdxCommand {
 				labels: [label],
 			},
 		};
-		return writeXmlToFile(fileName, xmlLabelStructure, XmlFormatter.fromFlags(this.flags));
+		return writeXmlToFile(
+			fileName,
+			xmlLabelStructure,
+			XmlFormatter.fromFlags(this.flags)
+		);
 	}
 
 	/**

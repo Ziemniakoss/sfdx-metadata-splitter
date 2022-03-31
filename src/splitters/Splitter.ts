@@ -16,7 +16,7 @@ export default abstract class Splitter {
 	 * @param inputFile
 	 * @param outputDir
 	 */
-	abstract split(inputFile: string, outputDir: string): Promise<unknown>
+	abstract split(inputFile: string, outputDir: string): Promise<unknown>;
 
 	/**
 	 * Split metadata into separate files.
@@ -33,12 +33,18 @@ export default abstract class Splitter {
 	 * @param tagName tag name  which we need to extract
 	 * @protected
 	 */
-	protected async writeSplittedToFiles(xml, keyFields: string[], baseOutputDir: string, fileExtension: string, tagName: string) {
-		const outputDir = join(baseOutputDir, tagName)
+	protected async writeSplittedToFiles(
+		xml,
+		keyFields: string[],
+		baseOutputDir: string,
+		fileExtension: string,
+		tagName: string
+	) {
+		const outputDir = join(baseOutputDir, tagName);
 		if (!existsSync(outputDir)) {
 			await promises.mkdir(outputDir);
 		}
-		const metadata = xml[tagName] ?? []
+		const metadata = xml[tagName] ?? [];
 		const allPromises = [];
 		for (const m of metadata) {
 			let fileName = "";
@@ -54,16 +60,18 @@ export default abstract class Splitter {
 			const xml = {
 				[this.getRootTag()]: {
 					$: {
-						xmlns: XML_NAMESPACE
+						xmlns: XML_NAMESPACE,
 					},
 
-					[tagName]: m
-				}
+					[tagName]: m,
+				},
 			};
-			allPromises.push(promises.writeFile(fullPath, this.xmlFormatter.formatXml(xml)));
+			allPromises.push(
+				promises.writeFile(fullPath, this.xmlFormatter.formatXml(xml))
+			);
 		}
 		return Promise.all(allPromises);
 	}
 
-	abstract getRootTag(): string
+	abstract getRootTag(): string;
 }

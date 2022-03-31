@@ -13,16 +13,16 @@ export async function findAllFilesWithExtension(
 	const allFiles = await findAllFiles(basePath);
 	console.log(allFiles);
 	const filesWithExtension = [];
-	for(const file of allFiles) {
-		if(file.endsWith(fileExtension)) {
-			console.log("yes")
-			filesWithExtension.push(file)
+	for (const file of allFiles) {
+		if (file.endsWith(fileExtension)) {
+			console.log("yes");
+			filesWithExtension.push(file);
 		}
 	}
 	return filesWithExtension;
 }
 
-export async function findAllFiles(basePath:string) {
+export async function findAllFiles(basePath: string) {
 	const dirs = [];
 	const files = [];
 	for (const fileOrDir of await promises.readdir(basePath)) {
@@ -48,13 +48,13 @@ export async function findAllFiles(basePath:string) {
 	return files;
 }
 
-export async function getAllDirs(path:string):Promise<string[]> {
+export async function getAllDirs(path: string): Promise<string[]> {
 	const dirs = [];
-	for(const fileOrDir of await promises.readdir(path)) {
-		const fullPath = join(path, fileOrDir)
-		const fileOrDirStats = lstatSync(fullPath)
-		if(fileOrDirStats.isDirectory()) {
-			dirs.push(fullPath)
+	for (const fileOrDir of await promises.readdir(path)) {
+		const fullPath = join(path, fileOrDir);
+		const fileOrDirStats = lstatSync(fullPath);
+		if (fileOrDirStats.isDirectory()) {
+			dirs.push(fullPath);
 		}
 	}
 	return dirs;
@@ -63,13 +63,13 @@ export async function getAllDirs(path:string):Promise<string[]> {
 export async function readXmlFromFile<T>(file: string): Promise<T> {
 	return promises
 		.readFile(file)
-		.then((fileContent) => parseStringPromise(fileContent))
+		.then((fileContent) => parseStringPromise(fileContent));
 }
 
 export async function writeXmlToFile(
 	file: string,
 	xml: object,
-	xmlFormatter:XmlFormatter
+	xmlFormatter: XmlFormatter
 ) {
 	return promises.writeFile(file, xmlFormatter.formatXml(xml));
 }

@@ -58,7 +58,11 @@ export default class MergeLabels extends SfdxCommand {
 		if (this.flags.remove) {
 			await this.removeSourceFiles(filesToMerge);
 		}
-		return writeXmlToFile(outputPath, labelsXml,XmlFormatter.fromFlags(this.flags));
+		return writeXmlToFile(
+			outputPath,
+			labelsXml,
+			XmlFormatter.fromFlags(this.flags)
+		);
 	}
 
 	private async removeSourceFiles(files) {
