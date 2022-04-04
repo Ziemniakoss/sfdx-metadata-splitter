@@ -5,7 +5,10 @@ import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import ProfilesSplitter from "../../../splitters/ProfilesSplitter";
 import XmlFormatter from "../../../utils/xmlFormatter";
 import { basename } from "path";
-import { findAllFilesWithExtension, getDefaultFolder } from "../../../utils/filesUtils";
+import {
+	findAllFilesWithExtension,
+	getDefaultFolder,
+} from "../../../utils/filesUtils";
 import * as path from "path";
 
 Messages.importMessagesDirectory(__dirname);
@@ -15,7 +18,7 @@ export default class SplitProfiles extends SfdxCommand {
 	public static description = messages.getMessage("description");
 	protected static requiresProject = true;
 	public static flagsConfig = {
-		remove: flags.string({
+		remove: flags.boolean({
 			description: messages.getMessage("flag_remove"),
 			char: "r",
 		}),
@@ -35,15 +38,14 @@ export default class SplitProfiles extends SfdxCommand {
 	async run() {
 		const filesToSplit = await this.getFilesToSplit();
 		const splitter = new ProfilesSplitter(XmlFormatter.fromFlags(this.flags));
-		this.ux.startSpinner(messages.getMessage("splitting"))
-		for(const file of filesToSplit) {
-			const fileName = basename(file)
-			this.ux.setSpinnerStatus(fileName)
-			await splitter.split(file, path.dirname(file))
-			this.ux.log(fileName)
-
+		this.ux.startSpinner(messages.getMessage("splitting"));
+		for (const file of filesToSplit) {
+			const fileName = basename(file);
+			this.ux.setSpinnerStatus(fileName);
+			await splitter.split(file, path.dirname(file));
+			this.ux.log(fileName);
 		}
-		this.ux.stopSpinner(messages.getMessage("done"))
+		this.ux.stopSpinner(messages.getMessage("done"));
 	}
 
 	public async getFilesToSplit(): Promise<string[]> {

@@ -31,24 +31,7 @@ export default abstract class Splitter {
 	 * ```
 	 * @param baseOutputDir base output dir
 	 * @param fileExtension extension added after all key fields are concentrated with dot
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Canceled</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Custom_Order__c</pageOrSobjectType>
-        <recordType>Custom_Order__c.Canceled</recordType>
-        <type>Flexipage</type>
-        <profile>CEO</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Canceled</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Custom_Order__c</pageOrSobjectType>
-        <recordType>Custom_Order__c.Canceled</recordType>
-        <type>Flexipage</type>
-        <profile>CEO</profile>
-    </profileActionOverrides>	 * @param tagName tag name  which we need to extract
+	 * @param tagName tag name  which we need to extract
 	 * @protected
 	 */
 	protected async writeSplittedToFiles(
@@ -59,8 +42,8 @@ export default abstract class Splitter {
 		tagName: string
 	) {
 		const metadata = xml[tagName];
-		if(metadata == null) {
-			return
+		if (metadata == null) {
+			return;
 		}
 		const outputDir = join(baseOutputDir, tagName);
 		if (!existsSync(outputDir)) {
@@ -139,7 +122,7 @@ export default abstract class Splitter {
 				outputXml[rootTag][tag] = elements;
 			}
 		}
-		return writeXmlToFile(outputFile, outputXml, this.xmlFormatter)
+		return writeXmlToFile(outputFile, outputXml, this.xmlFormatter);
 	}
 
 	abstract getRootTag(): string;
