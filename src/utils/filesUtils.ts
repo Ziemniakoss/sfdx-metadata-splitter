@@ -11,11 +11,9 @@ export async function findAllFilesWithExtension(
 	fileExtension: string
 ): Promise<string[]> {
 	const allFiles = await findAllFiles(basePath);
-	console.log(allFiles);
 	const filesWithExtension = [];
 	for (const file of allFiles) {
 		if (file.endsWith(fileExtension)) {
-			console.log("yes");
 			filesWithExtension.push(file);
 		}
 	}
@@ -60,7 +58,7 @@ export async function getAllDirs(path: string): Promise<string[]> {
 	return dirs;
 }
 
-export async function readXmlFromFile<T>(file: string): Promise<T> {
+export async function readXmlFromFile(file: string): Promise<any> {
 	return promises
 		.readFile(file)
 		.then((fileContent) => parseStringPromise(fileContent));

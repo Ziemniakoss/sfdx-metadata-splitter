@@ -2,11 +2,12 @@ import { promises, existsSync } from "fs";
 import { join } from "path";
 import XmlFormatter from "../utils/xmlFormatter";
 import { XML_NAMESPACE } from "../constants";
+import { writeXmlToFile } from "../utils/filesUtils";
 
 export default abstract class Splitter {
 	protected xmlFormatter: XmlFormatter;
 
-	protected constructor(xmlFormatter: XmlFormatter) {
+	public constructor(xmlFormatter: XmlFormatter) {
 		this.xmlFormatter = xmlFormatter;
 	}
 
@@ -30,7 +31,24 @@ export default abstract class Splitter {
 	 * ```
 	 * @param baseOutputDir base output dir
 	 * @param fileExtension extension added after all key fields are concentrated with dot
-	 * @param tagName tag name  which we need to extract
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Canceled</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Custom_Order__c</pageOrSobjectType>
+        <recordType>Custom_Order__c.Canceled</recordType>
+        <type>Flexipage</type>
+        <profile>CEO</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Canceled</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Custom_Order__c</pageOrSobjectType>
+        <recordType>Custom_Order__c.Canceled</recordType>
+        <type>Flexipage</type>
+        <profile>CEO</profile>
+    </profileActionOverrides>	 * @param tagName tag name  which we need to extract
 	 * @protected
 	 */
 	protected async writeSplittedToFiles(
@@ -40,11 +58,14 @@ export default abstract class Splitter {
 		fileExtension: string,
 		tagName: string
 	) {
+		const metadata = xml[tagName];
+		if(metadata == null) {
+			return
+		}
 		const outputDir = join(baseOutputDir, tagName);
 		if (!existsSync(outputDir)) {
 			await promises.mkdir(outputDir);
 		}
-		const metadata = xml[tagName] ?? [];
 		const allPromises = [];
 		for (const m of metadata) {
 			let fileName = "";
@@ -71,6 +92,54 @@ export default abstract class Splitter {
 			);
 		}
 		return Promise.all(allPromises);
+	}
+
+	protected async writeTag(
+		xml,
+		outputDir: string,
+		fileExtension: string,
+		tagName: string
+	) {
+		if (xml[tagName] == null) {
+			return;
+		}
+
+		const newXml = {
+			[this.getRootTag()]: {
+				$: {
+					xmlns: XML_NAMESPACE,
+				},
+				[tagName]: xml[tagName],
+			},
+		};
+		const fullPath = join(outputDir, `${tagName}${fileExtension}`);
+		return promises.writeFile(fullPath, this.xmlFormatter.formatXml(newXml));
+	}
+
+	/**
+	 * Write all defined tags to single file
+	 *
+	 * @param xml
+	 * @param outputFile
+	 * @param tags list of tags that should be included in created file
+	 * @protected
+	 */
+	protected async writeTags(xml, outputFile: string, tags: string[]) {
+		const rootTag = this.getRootTag();
+		const outputXml = {
+			[rootTag]: {
+				$: {
+					xmlns: XML_NAMESPACE,
+				},
+			},
+		};
+		for (const tag of tags.sort()) {
+			const elements = xml[tag];
+			if (elements != null) {
+				outputXml[rootTag][tag] = elements;
+			}
+		}
+		return writeXmlToFile(outputFile, outputXml, this.xmlFormatter)
 	}
 
 	abstract getRootTag(): string;

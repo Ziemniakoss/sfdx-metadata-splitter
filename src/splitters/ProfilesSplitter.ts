@@ -1,13 +1,45 @@
 import Splitter from "./Splitter";
-import { SPLITTED_PROFILES_EXTENSION } from "../constants";
+import { SPLITTED_PROFILES_EXTENSION, XML_NAMESPACE } from "../constants";
+import { readXmlFromFile, writeXmlToFile } from "../utils/filesUtils";
+import { basename, join } from "path";
+import { existsSync, promises } from "fs";
 
 export default class ProfilesSplitter extends Splitter {
 	getRootTag(): string {
 		return "Profile";
 	}
 
-	split(inputFile: string, outputDir: string): Promise<unknown> {
-		return Promise.resolve(undefined);
+	async split(inputFile: string, baseOutputDir: string): Promise<unknown> {
+		const profileName = this.getProfileName(inputFile)
+		const outputDir = join(baseOutputDir, profileName)
+		console.error(outputDir)
+		if(!existsSync(outputDir)) {
+			await  promises.mkdir(outputDir)
+		}
+		const profileProperties = (await readXmlFromFile(inputFile)).Profile ?? {};
+		return Promise.all([
+			this.writeApplicationVisibilities(profileProperties, outputDir),
+			this.writeCategoryGroupVisibilities(profileProperties, outputDir),
+			this.writeClassAccesses(profileProperties, outputDir),
+			this.writeCustomMetadataTypeAccesses(profileProperties, outputDir),
+			this.writeCustomPermissions(profileProperties, outputDir),
+			this.writeCustomSettingAccesses(profileProperties, outputDir),
+			this.writeExternalDataSourceAccesses(profileProperties, outputDir),
+			this.writeFieldLevelSecurities(profileProperties, outputDir),
+			this.writeFieldPermissions(profileProperties, outputDir),
+			this.writeFlowAccesses(profileProperties, outputDir),
+			this.writeLayoutAssignments(profileProperties, outputDir),
+			this.writeLoginFlows(profileProperties, outputDir),
+			this.writeLoginHours(profileProperties, outputDir),
+			this.writeLoginIpRanges(profileProperties, outputDir),
+			this.writeObjectPermissions(profileProperties, outputDir),
+			this.writePageAccesses(profileProperties, outputDir),
+			this.writeProfileActionOverrides(profileProperties, outputDir),
+			this.writeRecordTypeVisibilities(profileProperties, outputDir),
+			this.writeTabVisibilities(profileProperties, outputDir),
+			this.writeUserPermissions(profileProperties, outputDir),
+			this.writeProfileProperties(profileProperties, outputDir, profileName),
+		]);
 	}
 
 	async writeApplicationVisibilities(profileProperties, outputDir: string) {
@@ -110,28 +142,54 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeLayoutAssignments(profileProperties, outputDir: string) {
-		//TODO custom file names
-		return this.writeSplittedToFiles(
-			profileProperties,
-			["recordType", "layout"],
-			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
-			"layoutAssignments"
-		);
+	async writeLayoutAssignments(profileProperties, baseOutputDir: string) {
+		const layoutAssignments = profileProperties.layoutAssignments;
+		if(layoutAssignments == null) {
+			return
+		}
+		const outputDir = join(baseOutputDir, "layoutAssignments")
+		if(!existsSync(outputDir)) {
+			await promises.mkdir(outputDir)
+		}
+		for(const layoutAssignment of layoutAssignments) {
+			const layout = layoutAssignment.layout[0];
+			let fileName = layout.substring(0, layout.indexOf("-"))
+			if(layoutAssignment.recordType != null) {
+				fileName += "." + layoutAssignment.recordType[0];
+			}
+			fileName += SPLITTED_PROFILES_EXTENSION;
+			const fullPath  = join(outputDir, fileName)
+			await writeXmlToFile(fullPath, {
+				[this.getRootTag()]: {
+					$: {
+						xmlns:XML_NAMESPACE
+					},
+					layoutAssignments: layoutAssignment
+				}
+			}, this.xmlFormatter)
+		}
 	}
 
 	async writeLoginFlows(profileProperties, outputDir: string) {
-		//TODO custom
-
+		return this.writeTag(
+			profileProperties,
+			outputDir,
+			SPLITTED_PROFILES_EXTENSION,
+			"loginFlows"
+		)
 	}
 
 	async writeLoginHours(profileProperties, outputDir: string) {
-		//todo custom file names
+		return this.writeTag(
+			profileProperties,
+			outputDir,
+			SPLITTED_PROFILES_EXTENSION,
+			"loginHours"
+		)
 	}
 
 	async writeLoginIpRanges(profileProperties, outputDir: string) {
-		//todo custom file name
+		return this.writeTag(profileProperties, outputDir, SPLITTED_PROFILES_EXTENSION, "loginIpRanges")
 	}
 
 	async writeObjectPermissions(profileProperties, outputDir: string) {
@@ -155,7 +213,12 @@ export default class ProfilesSplitter extends Splitter {
 	}
 
 	async writeProfileActionOverrides(profileProperties, outputDir: string) {
-		//TODO
+		return this.writeTag(
+			profileProperties,
+			outputDir,
+			SPLITTED_PROFILES_EXTENSION,
+			"profileActionOverrides"
+		)
 	}
 
 	async writeRecordTypeVisibilities(profileProperties, outputDir: string) {
@@ -165,7 +228,7 @@ export default class ProfilesSplitter extends Splitter {
 			outputDir,
 			SPLITTED_PROFILES_EXTENSION,
 			"recordTypeVisibilities"
-		)
+		);
 	}
 
 	async writeTabVisibilities(profileProperties, outputDir: string) {
@@ -175,7 +238,7 @@ export default class ProfilesSplitter extends Splitter {
 			outputDir,
 			SPLITTED_PROFILES_EXTENSION,
 			"tabVisibilities"
-		)
+		);
 	}
 
 	async writeUserPermissions(profileProperties, outputDir: string) {
@@ -185,13 +248,36 @@ export default class ProfilesSplitter extends Splitter {
 			outputDir,
 			SPLITTED_PROFILES_EXTENSION,
 			"userPermissions"
-		)
+		);
 	}
 
-	async writeProfileProperties(profileProperties, outputDir: string) {
-		//custom
-		//description
-		//fullname
-		//userLicense
+	async writeProfileProperties(
+		profileProperties,
+		outputDir: string,
+		profileName: string
+	) {
+		const filepath = join(
+			outputDir,
+			`${profileName}${SPLITTED_PROFILES_EXTENSION}`
+		);
+		return this.writeTags(profileProperties, filepath, [
+			"custom",
+			"description",
+			"fullname",
+			"userLicense",
+		]);
+	}
+
+	getProfileName(inputFile:string) {
+		const fileName = basename(inputFile)
+		let dotsCount = 0;
+		for (let i = fileName.length - 1; i > 0; i--) {
+			if (fileName[i] === ".") {
+				dotsCount++;
+			}
+			if (dotsCount == 2) {
+				return fileName.substring(0, i);
+			}
+		}
 	}
 }

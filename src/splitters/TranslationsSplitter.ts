@@ -6,8 +6,6 @@ import { existsSync, mkdirSync } from "fs";
 import { SPLITTED_TRANSLATIONS_EXTENSION } from "../constants";
 
 export default class TranslationsSplitter extends Splitter {
-	xmlFormatter: XmlFormatter;
-
 	constructor(xmlFormatter: XmlFormatter) {
 		super(xmlFormatter);
 	}

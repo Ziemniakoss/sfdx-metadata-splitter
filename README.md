@@ -6,8 +6,15 @@ Unofficial plugin for splitting metadata files into smaller ones.
 
 - Custom Labels
 - Translations
+- Profiles
 
 ## How to use
+
+Each command has will print help to console if you add
+```
+--help
+```
+flag to command invocation.
 
 ### Installation
 
@@ -57,3 +64,24 @@ To merge them back and remvoe splitted files, use:
 ```
 sfdx metadata:translations:merge -r
 ```
+
+### Profiles support
+
+Profiles have to be merged before converting metadata or deployment.
+
+To split profiles, use
+```
+sfdx metadata:profiles:split
+```
+You can add flag -r to remove
+
+
+#### Warning!!
+
+Tags:
+- loginFlows
+- loginIpRanges
+- profileActionOverrides
+
+are not fully divided in this version of plugin as I don't know how to efficiently divide them.
+If you have an idea, please submit pull request or issue.
