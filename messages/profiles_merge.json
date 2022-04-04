@@ -1,0 +1,10 @@
+{
+	"description": "Merge profiles\nMerges profiles",
+	"flag_remove": "Remove folders with splitted profiles after merging",
+	"flag_input": "Folders to merge",
+	"example_mergeAll": "# Merge all profiles\nsfdx metadata:profiles:merge",
+	"example_mergeAllAndRemoveSource": "# Merge all profiles and remove splitted files\nsfdx metadata:profiles:merge -r",
+	"example_mergeOnlyOneProfile": "# Merge only specified profile\n sfdx metadata:profiles:merge -i force-app/main/default/profiles/ProfileFolder",
+	"done": "Merged profiles",
+	"merging": "Merging profiles"
+}

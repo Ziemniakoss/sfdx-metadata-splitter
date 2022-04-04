@@ -1,0 +1,10 @@
+{
+	"description": "Split profiles\nSplits profile. Output dir name is based on input file name",
+	"flag_remove": "Remove splitted file",
+	"flag_input": "Profile file to splitter. By default all profiles will be splitted",
+	"example_splitAll": "# Splits all profiles\nsfdx metadata:profiles:split",
+	"example_splitAllAndRemoveSource": "# Split all and remove source (Recommended in CICD systems)\nsfdx metadata:profiles:split -r",
+	"example_splitOnlyOneProfile": "# Splits only specified profile\nsfdx metadata:profiles:split -i CustomProfile.profile-meta.xml",
+	"splitting": "Splitting profiles",
+	"done": "Splitted"
+}

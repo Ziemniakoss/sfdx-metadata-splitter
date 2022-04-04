@@ -5,6 +5,7 @@ import {
 	writeXmlToFile,
 } from "../utils/filesUtils";
 import { XML_NAMESPACE } from "../constants";
+import { sortObjectPropertiesAlphabetically } from "../utils/objectSorters";
 
 export default abstract class Merger {
 	protected xmlFormatter: XmlFormatter;
@@ -27,8 +28,7 @@ export default abstract class Merger {
 			},
 		};
 
-		for (let i = 0; i < filesToMerge.length; i++) {
-			const file = filesToMerge[i];
+		for (const file of filesToMerge) {
 			const xmlToMerge = await readXmlFromFile(file);
 			const contents = xmlToMerge[rootTag] ?? {};
 			for (const key of Object.keys(contents)) {
@@ -54,7 +54,7 @@ export default abstract class Merger {
 	}
 
 	public sortElements(xml) {
-		return xml;
+		return sortObjectPropertiesAlphabetically(xml);
 	}
 
 	abstract getRootTag(): string;

@@ -51,6 +51,15 @@
 		"topics": {
 			"metadata": {
 				"description": "Manage metadata"
+			},
+			"metadata:profiles": {
+				"description": "Manage profiles"
+			},
+			"metadata:labels": {
+				"description": "Manage labels"
+			},
+			"metadata:translations": {
+				"description": "Manage translations"
 			}
 		},
 		"devPlugins": [
