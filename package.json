@@ -1,6 +1,6 @@
 {
 	"name": "sfdx-metadata-splitter",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"author": "Ziemniakoss",
 	"bugs": "https://github.com/Ziemniakoss/sfdx-metadata-splitter/issues",
 	"dependencies": {
