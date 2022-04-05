@@ -51,8 +51,8 @@ export default class MergeProfiles extends SfdxCommand {
 				`${folderName}${PROFILES_EXTENSION}`
 			);
 			await merger.join(profileFolder, outputFile);
-			if(this.flags.remove) {
-				rmSync(profileFolder, {recursive:true})
+			if (this.flags.remove) {
+				rmSync(profileFolder, { recursive: true });
 			}
 			this.ux.log(`${folderName} (${profileFolder})`);
 		}

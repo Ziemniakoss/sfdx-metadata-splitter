@@ -27,7 +27,7 @@ export default class SplitTranslations extends SfdxCommand {
 			description: messages.getMessage("flag_input"),
 			char: "i",
 		}),
-		"remove": flags.boolean({
+		remove: flags.boolean({
 			description: messages.getMessage("flag_remove"),
 			char: "r",
 		}),

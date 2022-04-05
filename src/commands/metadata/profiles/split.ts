@@ -44,8 +44,8 @@ export default class SplitProfiles extends SfdxCommand {
 			const fileName = basename(file);
 			this.ux.setSpinnerStatus(fileName);
 			await splitter.split(file, path.dirname(file));
-			if(this.flags.remove) {
-				rmSync(file)
+			if (this.flags.remove) {
+				rmSync(file);
 			}
 			this.ux.log(fileName);
 		}
