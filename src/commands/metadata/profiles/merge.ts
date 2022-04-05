@@ -11,6 +11,7 @@ import {
 } from "../../../utils/filesUtils";
 import * as path from "path";
 import ProfilesMerger from "../../../mergers/ProfilesMerger";
+import { rmSync } from "fs";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "profiles_merge");
@@ -50,6 +51,9 @@ export default class MergeProfiles extends SfdxCommand {
 				`${folderName}${PROFILES_EXTENSION}`
 			);
 			await merger.join(profileFolder, outputFile);
+			if(this.flags.remove) {
+				rmSync(profileFolder, {recursive:true})
+			}
 			this.ux.log(`${folderName} (${profileFolder})`);
 		}
 		this.ux.stopSpinner(messages.getMessage("done"));

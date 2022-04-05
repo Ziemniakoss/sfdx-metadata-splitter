@@ -10,6 +10,7 @@ import {
 	getDefaultFolder,
 } from "../../../utils/filesUtils";
 import * as path from "path";
+import { rmSync } from "fs";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "profiles_split");
@@ -43,6 +44,9 @@ export default class SplitProfiles extends SfdxCommand {
 			const fileName = basename(file);
 			this.ux.setSpinnerStatus(fileName);
 			await splitter.split(file, path.dirname(file));
+			if(this.flags.remove) {
+				rmSync(file)
+			}
 			this.ux.log(fileName);
 		}
 		this.ux.stopSpinner(messages.getMessage("done"));
