@@ -27,7 +27,7 @@ export default class SplitTranslations extends SfdxCommand {
 			description: messages.getMessage("flag_input"),
 			char: "i",
 		}),
-		"remove-input-file": flags.boolean({
+		remove: flags.boolean({
 			description: messages.getMessage("flag_remove"),
 			char: "r",
 		}),
@@ -44,7 +44,8 @@ export default class SplitTranslations extends SfdxCommand {
 			const fileName = basename(file);
 			this.ux.setSpinnerStatus(fileName);
 			await translationSplitter.split(file, baseOutputFolder);
-			if (this.flags["remove-input-file"]) {
+
+			if (this.flags.remove) {
 				rmSync(file);
 			}
 			this.ux.log(file);

@@ -54,7 +54,10 @@ export default abstract class Merger {
 	}
 
 	public sortElements(xml) {
-		return sortObjectPropertiesAlphabetically(xml);
+		const rootTag = this.getRootTag();
+		return {
+			[rootTag]: sortObjectPropertiesAlphabetically(xml[rootTag]),
+		};
 	}
 
 	abstract getRootTag(): string;
