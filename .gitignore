@@ -7,7 +7,6 @@
 node_modules
 force-app
 sfdx-project.json
-test
 .idea
-
 /.sfdx/
+/test/commands/hello/org.test.template.ts
