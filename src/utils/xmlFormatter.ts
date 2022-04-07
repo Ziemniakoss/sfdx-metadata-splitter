@@ -6,7 +6,7 @@ interface FormatterConfig {
 }
 
 function repeat(str: string, times: number): string {
-	let result = str;
+	let result = "";
 	for (let i = 0; i < times; i++) {
 		result += str;
 	}
@@ -48,8 +48,8 @@ export default class XmlFormatter {
 		const indentSize = flags["indent-size"] ?? 4;
 		return new XmlFormatter({
 			indent: repeat(indentChar, Math.max(0, indentSize)),
-			newLineChar: flags["new-line-cha"] == "windows" ? "\r\n" : "\n",
-			skipFinalNewLine: flags["skip-final-new-line"],
+			newLineChar: flags["new-line-char"] == "windows" ? "\r\n" : "\n",
+			skipFinalNewLine: flags["skip-final-new-line"] ?? false,
 		});
 	}
 }

@@ -7,12 +7,10 @@ import XmlFormatter from "../../../utils/xmlFormatter";
 import * as path from "path";
 import { rmSync } from "fs";
 import FORMATTING_FLAGS from "../../../utils/formattingFlags";
+import { PLUGIN_NAME, TRANSLATIONS_EXTENSION } from "../../../constants";
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.loadMessages(
-	"sfdx-metadata-splitter",
-	"translations_merge"
-);
+const messages = Messages.loadMessages(PLUGIN_NAME, "translations_merge");
 
 export default class MergeTranslations extends SfdxCommand {
 	public static description = messages.getMessage("description");
@@ -46,7 +44,7 @@ export default class MergeTranslations extends SfdxCommand {
 			const parentDirName = path.dirname(folder);
 			const outputFileName = join(
 				parentDirName,
-				`${baseNameOfFolder}.translation-meta.xml`
+				`${baseNameOfFolder}${TRANSLATIONS_EXTENSION}`
 			);
 			await merger.join(folder, outputFileName);
 			if (this.flags.remove) {
