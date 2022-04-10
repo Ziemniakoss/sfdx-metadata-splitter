@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+	<custom>false</custom>
+	<userLicense>Salesforce</userLicense>
+	<loginFlows>
+		<flow>FunFlow</flow>
+		<flowType>UI</flowType>
+		<friendlyName>License Acceptance Standard</friendlyName>
+		<uiLoginFlowType>VisualWorkflow</uiLoginFlowType>
+		<useLightningRuntime>true</useLightningRuntime>
+	</loginFlows>
+	<loginIpRanges>
+		<description>the whole internet</description>
+		<startAddress>0.0.0.0</startAddress>
+		<endAddress>255.255.255.255</endAddress>
+	</loginIpRanges>
+	<profileActionOverrides>
+		<actionName>View</actionName>
+		<content>Canceled</content>
+		<formFactor>Large</formFactor>
+		<pageOrSobjectType>Custom_Order__c</pageOrSobjectType>
+		<recordType>Custom_Order__c.Canceled</recordType>
+		<type>Flexipage</type>
+		<profile>CEO</profile>
+	</profileActionOverrides>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Contact.AccountId</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<layoutAssignments>
+		<layout>Account-Account Layout Special</layout>
+		<recordType>Special Account</recordType>
+	</layoutAssignments>
+	<layoutAssignments>
+		<layout>Account-Account Layout</layout>
+	</layoutAssignments>
+	<objectPermissions>
+		<allowCreate>false</allowCreate>
+		<allowDelete>false</allowDelete>
+		<allowEdit>true</allowEdit>
+		<allowRead>true</allowRead>
+		<modifyAllRecords>false</modifyAllRecords>
+		<object>Account</object>
+		<viewAllRecords>false</viewAllRecords>
+	</objectPermissions>
+	<objectPermissions>
+		<allowCreate>false</allowCreate>
+		<allowDelete>false</allowDelete>
+		<allowEdit>false</allowEdit>
+		<allowRead>true</allowRead>
+		<modifyAllRecords>false</modifyAllRecords>
+		<object>Asset</object>
+		<viewAllRecords>false</viewAllRecords>
+	</objectPermissions>
+	<recordTypeVisibilities>
+		<recordType>Case.Read_Only_RCS_PO</recordType>
+		<visible>true</visible>
+	</recordTypeVisibilities>
+	<tabVisibilities>
+		<tab>standard-Contract</tab>
+		<visibility>DefaultOn</visibility>
+	</tabVisibilities>
+	<userPermissions>
+		<enabled>true</enabled>
+		<name>RunReports</name>
+	</userPermissions>
+</Profile>

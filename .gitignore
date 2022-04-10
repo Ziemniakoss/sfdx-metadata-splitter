@@ -10,3 +10,4 @@ sfdx-project.json
 .idea
 /.sfdx/
 /test/commands/hello/org.test.template.ts
+/test-project/
