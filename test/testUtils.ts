@@ -7,6 +7,7 @@ import {
 	statSync,
 } from "fs";
 import { join } from "path";
+import * as assert from "assert";
 
 export const ROOT_TEST_FILES_DIR = "test-project";
 export function createProject(baseDirPath: string) {
@@ -15,13 +16,20 @@ export function createProject(baseDirPath: string) {
 	}
 	deleteProject(baseDirPath);
 	copyRecursiveSync(
-		join("test", "testProjectFiles"),
+		join("test", "testProjectFiles", "merged"),
 		join(ROOT_TEST_FILES_DIR, baseDirPath)
 	);
 }
 
 export function createSplittedProject(baseDirPath: string) {
+	if (!existsSync(ROOT_TEST_FILES_DIR)) {
+		mkdirSync(ROOT_TEST_FILES_DIR);
+	}
 	deleteProject(baseDirPath);
+	copyRecursiveSync(
+		join("test", "testProjectFiles", "splitted"),
+		join(ROOT_TEST_FILES_DIR, baseDirPath)
+	);
 }
 
 export function deleteProject(baseDirPath: string) {
@@ -31,11 +39,6 @@ export function deleteProject(baseDirPath: string) {
 	}
 }
 
-/**
- * Look ma, it's cp -R.
- * @param {string} src  The path to the thing to copy.
- * @param {string} dest The path to the new copy.
- */
 function copyRecursiveSync(src, dest) {
 	const exists = existsSync(src);
 	const stats = exists && statSync(src);
@@ -46,7 +49,12 @@ function copyRecursiveSync(src, dest) {
 			copyRecursiveSync(join(src, childItemName), join(dest, childItemName));
 		});
 	} else {
-		console.log("COPNG", src, "to", dest);
 		copyFileSync(src, dest);
+	}
+}
+
+export function filesShouldExist(files) {
+	for (const file of files) {
+		assert.equal(existsSync(file), true, `File ${file} doesnt exist`);
 	}
 }

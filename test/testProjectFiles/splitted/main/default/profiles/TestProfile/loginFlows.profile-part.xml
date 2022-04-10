@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <loginFlows>
+        <flow>FunFlow</flow>
+        <flowType>UI</flowType>
+        <friendlyName>License Acceptance Standard</friendlyName>
+        <uiLoginFlowType>VisualWorkflow</uiLoginFlowType>
+        <useLightningRuntime>true</useLightningRuntime>
+    </loginFlows>
+</Profile>
