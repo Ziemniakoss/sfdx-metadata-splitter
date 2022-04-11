@@ -38,6 +38,9 @@ export default class SplitLabels extends SfdxCommand {
 	};
 
 	public async run() {
+		this.ux.warn(
+			"In future major release, command will delete source files by default. New flag will be introduced, keep, that will allow to keep source files"
+		);
 		const [inputFileName, outputFolder] = await Promise.all([
 			this.getInputFile(),
 			this.getOutputFolder(),

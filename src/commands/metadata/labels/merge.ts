@@ -34,6 +34,9 @@ export default class MergeLabels extends SfdxCommand {
 	};
 
 	public async run() {
+		this.ux.warn(
+			"In future major release, command will delete source files by default. New flag will be introduced, keep, that will allow to keep source files"
+		);
 		const filesToMerge = await findAllFilesWithExtension(
 			this.project.getPath(),
 			"labels-meta.xml"
