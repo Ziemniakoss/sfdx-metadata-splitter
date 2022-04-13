@@ -70,7 +70,7 @@
 	"scripts": {
 		"build": "tsc -p .",
 		"postpack": "rm -f oclif.manifest.json",
-		"test": "nyc --extension .ts --require ts-node/register mocha --forbid-only \"test/**/*.test.ts\"",
+		"test": "nyc --extension .ts --require ts-node/register mocha --forbid-only \"test/**/*.test.ts\" --timeout 10000",
 		"prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
 		"version": "oclif-dev readme && git add README.md"
 	}
