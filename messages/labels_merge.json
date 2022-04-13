@@ -1,5 +1,8 @@
 {
+	"deprecation_notice": "In future major release, command will delete source files by default. New flag will be introduced, keep, that will allow to keep source files",
 	"description": "Merge labels into single file\nSearches for all files with .labels-meta.xml extension and merges them into one",
+	"done": "Merged",
 	"flag_output": "Output file, by default defaultProjectPath/main/default/labels/CustomLabels.labels-meta.xml",
-	"flag_remove": "Remove source files"
+	"flag_remove": "Remove source files",
+	"spinnerText": "Merging labels"
 }

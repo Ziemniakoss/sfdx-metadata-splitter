@@ -1,10 +1,13 @@
 {
-	"description": "Split labels into separate files\nFinds all labels files and write each label to file named after label's fullName",
-	"flag_output": "Output dir, by default it will be  force-app/main/default/labels)",
-	"flag_input": "Input file, for example. \nIf not provicded, program will check if {{defaultProjectPath}}/main/default/labels/CustomLabels.labels-meta.xml exists and use it as input. \nIf file does not exist, error will be thrown",
-	"flag_remove": "Remove input file after splitting",
-	"error_fileDoesNotExist": "Specified file or default labels file (see --input flag help) does not exist",
+	"action_createCustomLabelsFile": "Create labels file in default location (defaultProjectPath/main/default/labels/CustomLabels.labels-meta.xml)",
 	"action_fetchLabels": "Fetch custom labels",
 	"action_specifyInput": "Specify input file with --input flag",
-	"action_createCustomLabelsFile": "Create labels file in default location (defaultProjectPath/main/default/labels/CustomLabels.labels-meta.xml)"
+	"deprecation_notice": "In future major release, command will delete source files by default. New flag will be introduced, keep, that will allow to keep source files",
+	"description": "Split labels into separate files\nFinds all labels files and write each label to file named after label's fullName",
+	"done": "Enjoy!",
+	"error_fileDoesNotExist": "Specified file or default labels file (see --input flag help) does not exist",
+	"flag_input": "Input file, for example. \nIf not provicded, program will check if {{defaultProjectPath}}/main/default/labels/CustomLabels.labels-meta.xml exists and use it as input. \nIf file does not exist, error will be thrown",
+	"flag_output": "Output dir, by default it will be  force-app/main/default/labels)",
+	"flag_remove": "Remove input file after splitting",
+	"splitting": "Splitting labels"
 }

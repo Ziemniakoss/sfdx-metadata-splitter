@@ -6,6 +6,7 @@ import {
 } from "../utils/filesUtils";
 import { XML_NAMESPACE } from "../constants";
 import { sortObjectPropertiesAlphabetically } from "../utils/objectSorters";
+import { rmSync } from "fs";
 
 export default abstract class Merger {
 	protected xmlFormatter: XmlFormatter;
@@ -14,7 +15,8 @@ export default abstract class Merger {
 		this.xmlFormatter = xmlFormatter;
 	}
 
-	public async join(inputDir: string, outputFile: string): Promise<any> {
+	public async join(inputDir: string, removeSource: boolean) {
+		const outputFile = this.getOutputFile(inputDir);
 		const filesToMerge = await findAllFilesWithExtension(
 			inputDir,
 			this.getSplittedExtension()
@@ -46,11 +48,14 @@ export default abstract class Merger {
 				}
 			}
 		}
-		return writeXmlToFile(
+		await writeXmlToFile(
 			outputFile,
 			this.sortElements(mergedXml),
 			this.xmlFormatter
 		);
+		if (removeSource) {
+			rmSync(inputDir, { recursive: true });
+		}
 	}
 
 	public sortElements(xml) {
@@ -63,4 +68,6 @@ export default abstract class Merger {
 	abstract getRootTag(): string;
 
 	abstract getSplittedExtension(): string;
+
+	abstract getOutputFile(inputDir: string): string;
 }

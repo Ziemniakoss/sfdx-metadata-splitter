@@ -1,5 +1,9 @@
 import Merger from "./Merger";
-import { SPLITTED_TRANSLATIONS_EXTENSION } from "../constants";
+import {
+	SPLITTED_TRANSLATIONS_EXTENSION,
+	TRANSLATIONS_EXTENSION,
+} from "../constants";
+import { basename, dirname, join } from "path";
 
 export default class TranslationsMerger extends Merger {
 	getRootTag(): string {
@@ -8,5 +12,11 @@ export default class TranslationsMerger extends Merger {
 
 	getSplittedExtension(): string {
 		return SPLITTED_TRANSLATIONS_EXTENSION;
+	}
+
+	getOutputFile(inputDir: string): string {
+		const dir = dirname(inputDir);
+		const language = basename(inputDir);
+		return join(dir, `${language}${TRANSLATIONS_EXTENSION}`);
 	}
 }

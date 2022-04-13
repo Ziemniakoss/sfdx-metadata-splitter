@@ -1,5 +1,5 @@
 import { promises, existsSync } from "fs";
-import { join } from "path";
+import { dirname, join } from "path";
 import XmlFormatter from "../utils/xmlFormatter";
 import { XML_NAMESPACE } from "../constants";
 import { writeXmlToFile } from "../utils/filesUtils";
@@ -11,13 +11,7 @@ export default abstract class Splitter {
 		this.xmlFormatter = xmlFormatter;
 	}
 
-	/**
-	 * Splits input file into multiple.
-	 * Output files will be written to folder specified as outputFolder
-	 * @param inputFile
-	 * @param outputDir
-	 */
-	abstract split(inputFile: string, outputDir: string): Promise<unknown>;
+	abstract split(inputFile: string): Promise<unknown>;
 
 	/**
 	 * Split metadata into separate files.
@@ -126,4 +120,8 @@ export default abstract class Splitter {
 	}
 
 	abstract getRootTag(): string;
+
+	protected getBaseDir(filepath: string): string {
+		return dirname(filepath);
+	}
 }
