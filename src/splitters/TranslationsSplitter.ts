@@ -10,7 +10,8 @@ export default class TranslationsSplitter extends Splitter {
 		super(xmlFormatter);
 	}
 
-	async split(inputFile: string, baseOutputDir: string): Promise<unknown> {
+	async split(inputFile: string): Promise<unknown> {
+		const baseOutputDir = this.getBaseDir(inputFile);
 		const splittedPathToInputFile = inputFile.split(sep);
 		const fileName =
 			splittedPathToInputFile[splittedPathToInputFile.length - 1];
