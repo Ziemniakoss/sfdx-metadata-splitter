@@ -6,14 +6,7 @@ import * as assert from "assert";
 
 describe("metadata:labels:split", () => {
 	createProject("m_l_s");
-	const fileToSplit = join(
-		ROOT_TEST_FILES_DIR,
-		"m_l_s",
-		"main",
-		"default",
-		"labels",
-		"CustomLabels.labels-meta.xml"
-	);
+
 	const outputPath = join(
 		ROOT_TEST_FILES_DIR,
 		"m_l_s",
@@ -21,16 +14,17 @@ describe("metadata:labels:split", () => {
 		"default",
 		"labels"
 	);
+	const inputDir = join(
+		ROOT_TEST_FILES_DIR,
+		"m_l_s",
+		"main",
+		"default",
+		"labels",
+		"CustomLabels.labels-meta.xml"
+	);
 	test
-		.command([
-			"metadata:labels:split",
-			"-i",
-			fileToSplit,
-			"-o",
-			outputPath,
-			"-r",
-		])
-		.it("Should create 2 files", (ctx) => {
+		.command(["metadata:labels:split", "-i", inputDir, "-r"])
+		.it("Should create 2 files", () => {
 			assert.equal(readdirSync(outputPath).length, 2);
 		});
 });
