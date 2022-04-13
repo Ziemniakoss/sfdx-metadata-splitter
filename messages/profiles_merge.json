@@ -6,5 +6,5 @@
 	"example_mergeAllAndRemoveSource": "# Merge all profiles and remove splitted files\nsfdx metadata:profiles:merge -r",
 	"example_mergeOnlyOneProfile": "# Merge only specified profile\n sfdx metadata:profiles:merge -i force-app/main/default/profiles/ProfileFolder",
 	"done": "Merged profiles",
-	"merging": "Merging profiles"
+	"spinnerText": "Merging profiles"
 }

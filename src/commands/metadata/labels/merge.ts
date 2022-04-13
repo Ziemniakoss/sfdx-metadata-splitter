@@ -1,24 +1,18 @@
-import { flags, SfdxCommand } from "@salesforce/command";
+import { flags, } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
-import {
-	findAllFilesWithExtension,
-	getDefaultFolder,
-	readXmlFromFile,
-	writeXmlToFile,
-} from "../../../utils/filesUtils";
-import { compareByField } from "../../../utils/comparators";
-import { join } from "path";
-import { promises } from "fs";
-import { XML_NAMESPACE } from "../../../constants";
+import { PLUGIN_NAME, } from "../../../constants";
+import MergingCommand from "../../../MergingCommand";
+import Merger from "../../../mergers/Merger";
+import LabelsMerger from "../../../mergers/LabelsMerger";
 import XmlFormatter from "../../../utils/xmlFormatter";
+import { basename, join } from "path";
+import { getDefaultFolder } from "../../../utils/filesUtils";
+import { existsSync } from "fs";
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.loadMessages(
-	"sfdx-metadata-splitter",
-	"labels_merge"
-);
+const messages = Messages.loadMessages(PLUGIN_NAME, "labels_merge");
 
-export default class MergeLabels extends SfdxCommand {
+export default class MergeLabels extends MergingCommand{
 	public static description = messages.getMessage("description");
 
 	protected static requiresProject = true;
@@ -33,63 +27,49 @@ export default class MergeLabels extends SfdxCommand {
 		}),
 	};
 
-	public async run() {
-		this.ux.warn(
-			"In future major release, command will delete source files by default. New flag will be introduced, keep, that will allow to keep source files"
-		);
-		const filesToMerge = await findAllFilesWithExtension(
-			this.project.getPath(),
-			"labels-meta.xml"
-		);
-		const outputPath = await this.getOutputPath();
-		console.log(getDefaultFolder(this.project));
+	async run(){
+		this.ux.warn(messages.getMessage("deprecation_notice"))
+		const merger = this.getMerger();
+		const dirsToMerge = await this.getInputDirs();
 
-		const labels = await Promise.all(
-			filesToMerge.map((fileName) => this.readLabelsFromFile(fileName))
-		).then((results) => results.flat());
-		const sortedLabels = labels.sort((a, b) =>
-			compareByField(a, b, "fullName")
-		);
-		const labelsXml = {
-			CustomLabels: {
-				$: {
-					xmlns: XML_NAMESPACE,
-				},
-				labels: sortedLabels,
-			},
-		};
-		if (this.flags.remove) {
-			await this.removeSourceFiles(filesToMerge);
+		this.ux.startSpinner(this.getSpinnerText())
+		for(const dir of dirsToMerge) {
+			this.ux.setSpinnerStatus(basename(dir))
+			await merger.join(dir, this.deleteAfterSplitting())
+			this.ux.log(dir)
 		}
-		return writeXmlToFile(
-			outputPath,
-			labelsXml,
-			XmlFormatter.fromFlags(this.flags)
-		);
+		this.ux.stopSpinner(this.getDoneMessage())
 	}
 
-	private async removeSourceFiles(files) {
-		return Promise.all(files.map((file) => promises.rm(file)));
-	}
-
-	private async getOutputPath(): Promise<string> {
-		if (this.flags.output != null) {
-			return this.flags.output;
+	async getInputDirs():Promise<string[]> {
+		if(this.flags.input != null){
+			return super.getInputDirs()
 		}
-		return join(
-			getDefaultFolder(this.project),
+		const defaultPath = getDefaultFolder(this.project)
+		const labelsDir = join(
+			defaultPath,
 			"main",
 			"default",
-			"labels",
-			"CustomLabels.labels-meta.xml"
-		);
+			this.getFolderName()
+		)
+		if(existsSync(labelsDir)) {
+			return [labelsDir]
+		}
+		return []
+	}
+	getDoneMessage(): string {
+		return messages.getMessage("done");
 	}
 
-	private async readLabelsFromFile(filePath: string): Promise<unknown> {
-		return readXmlFromFile(filePath).then((parsedXml) => {
-			// @ts-ignore
-			const labels = parsedXml.CustomLabels?.labels;
-			return labels ?? [];
-		});
+	getFolderName(): string {
+		return "labels";
+	}
+
+	getMerger(): Merger {
+		return new LabelsMerger(XmlFormatter.fromFlags(this.flags));
+	}
+
+	getSpinnerText(): string {
+		return messages.getMessage("spinnerText");
 	}
 }
