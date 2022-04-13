@@ -9,7 +9,8 @@ export default class ProfilesSplitter extends Splitter {
 		return "Profile";
 	}
 
-	async split(inputFile: string, baseOutputDir: string): Promise<unknown> {
+	async split(inputFile: string): Promise<unknown> {
+		const baseOutputDir = this.getBaseDir(inputFile);
 		const profileName = this.getProfileName(inputFile);
 		const outputDir = join(baseOutputDir, profileName);
 		if (!existsSync(outputDir)) {

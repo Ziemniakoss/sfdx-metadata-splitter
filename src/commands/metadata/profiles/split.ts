@@ -1,21 +1,17 @@
-import { flags, SfdxCommand } from "@salesforce/command";
+import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
 import { PLUGIN_NAME, PROFILES_EXTENSION } from "../../../constants";
 import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import ProfilesSplitter from "../../../splitters/ProfilesSplitter";
 import XmlFormatter from "../../../utils/xmlFormatter";
-import { basename } from "path";
-import {
-	findAllFilesWithExtension,
-	getDefaultFolder,
-} from "../../../utils/filesUtils";
-import * as path from "path";
-import { rmSync } from "fs";
+
+import SplittingCommand from "../../../SplittingCommand";
+import Splitter from "../../../splitters/Splitter";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "profiles_split");
 
-export default class SplitProfiles extends SfdxCommand {
+export default class SplitProfiles extends SplittingCommand {
 	public static description = messages.getMessage("description");
 	protected static requiresProject = true;
 	public static flagsConfig = {
@@ -36,29 +32,19 @@ export default class SplitProfiles extends SfdxCommand {
 		messages.getMessage("example_splitOnlyOneProfile"),
 	];
 
-	async run() {
-		const filesToSplit = await this.getFilesToSplit();
-		const splitter = new ProfilesSplitter(XmlFormatter.fromFlags(this.flags));
-		this.ux.startSpinner(messages.getMessage("splitting"));
-		for (const file of filesToSplit) {
-			const fileName = basename(file);
-			this.ux.setSpinnerStatus(fileName);
-			await splitter.split(file, path.dirname(file));
-			if (this.flags.remove) {
-				rmSync(file);
-			}
-			this.ux.log(fileName);
-		}
-		this.ux.stopSpinner(messages.getMessage("done"));
+	protected getDoneMessage(): string {
+		return messages.getMessage("done");
 	}
 
-	public async getFilesToSplit(): Promise<string[]> {
-		if (this.flags["input"]) {
-			return [this.flags["input"]];
-		}
-		return findAllFilesWithExtension(
-			getDefaultFolder(this.project),
-			PROFILES_EXTENSION
-		);
+	protected getFilesExtension(): string {
+		return PROFILES_EXTENSION;
+	}
+
+	protected getSpinnerText(): string {
+		return messages.getMessage("splitting");
+	}
+
+	protected getSplitter(): Splitter {
+		return new ProfilesSplitter(XmlFormatter.fromFlags(this.flags));
 	}
 }

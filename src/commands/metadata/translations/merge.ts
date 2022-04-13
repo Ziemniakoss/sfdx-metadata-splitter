@@ -1,18 +1,16 @@
-import { flags, SfdxCommand } from "@salesforce/command";
+import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
-import { getAllDirs, getDefaultFolder } from "../../../utils/filesUtils";
-import { basename, join } from "path";
 import TranslationsMerger from "../../../mergers/TranslationsMerger";
 import XmlFormatter from "../../../utils/xmlFormatter";
-import * as path from "path";
-import { rmSync } from "fs";
 import FORMATTING_FLAGS from "../../../utils/formattingFlags";
-import { PLUGIN_NAME, TRANSLATIONS_EXTENSION } from "../../../constants";
+import { PLUGIN_NAME } from "../../../constants";
+import MergingCommand from "../../../MergingCommand";
+import Merger from "../../../mergers/Merger";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "translations_merge");
 
-export default class MergeTranslations extends SfdxCommand {
+export default class MergeTranslations extends MergingCommand {
 	public static description = messages.getMessage("description");
 
 	protected static requiresProject = true;
@@ -33,39 +31,19 @@ export default class MergeTranslations extends SfdxCommand {
 		messages.getMessage("example_mergeOnlyOne"),
 	];
 
-	public async run() {
-		const merger = new TranslationsMerger(XmlFormatter.fromFlags(this.flags));
-		const translationFolders = await this.getInputDirs();
-
-		this.ux.startSpinner("Merging translations");
-		for (const folder of translationFolders) {
-			const baseNameOfFolder = basename(folder);
-			this.ux.setSpinnerStatus(baseNameOfFolder);
-			const parentDirName = path.dirname(folder);
-			const outputFileName = join(
-				parentDirName,
-				`${baseNameOfFolder}${TRANSLATIONS_EXTENSION}`
-			);
-			await merger.join(folder, outputFileName);
-			if (this.flags.remove) {
-				rmSync(folder, { recursive: true });
-			}
-			this.ux.log(`${baseNameOfFolder} (${folder})`);
-		}
-		this.ux.stopSpinner();
+	getDoneMessage(): string {
+		return messages.getMessage("done");
 	}
 
-	private async getInputDirs(): Promise<string[]> {
-		if (this.flags.input != null) {
-			return [this.flags.input];
-		}
-		const defaultPath = getDefaultFolder(this.project);
-		const translationsFolder = join(
-			defaultPath,
-			"main",
-			"default",
-			"translations"
-		);
-		return getAllDirs(translationsFolder);
+	getFolderName(): string {
+		return "translations";
+	}
+
+	getMerger(): Merger {
+		return new TranslationsMerger(XmlFormatter.fromFlags(this.flags));
+	}
+
+	getSpinnerText(): string {
+		return messages.getMessage("spinnerMessage");
 	}
 }
