@@ -1,6 +1,6 @@
-import { flags, } from "@salesforce/command";
+import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
-import { PLUGIN_NAME, } from "../../../constants";
+import { PLUGIN_NAME } from "../../../constants";
 import MergingCommand from "../../../MergingCommand";
 import Merger from "../../../mergers/Merger";
 import LabelsMerger from "../../../mergers/LabelsMerger";
@@ -12,7 +12,7 @@ import { existsSync } from "fs";
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "labels_merge");
 
-export default class MergeLabels extends MergingCommand{
+export default class MergeLabels extends MergingCommand {
 	public static description = messages.getMessage("description");
 
 	protected static requiresProject = true;
@@ -27,35 +27,35 @@ export default class MergeLabels extends MergingCommand{
 		}),
 	};
 
-	async run(){
-		this.ux.warn(messages.getMessage("deprecation_notice"))
+	async run() {
+		this.ux.warn(messages.getMessage("deprecation_notice"));
 		const merger = this.getMerger();
 		const dirsToMerge = await this.getInputDirs();
 
-		this.ux.startSpinner(this.getSpinnerText())
-		for(const dir of dirsToMerge) {
-			this.ux.setSpinnerStatus(basename(dir))
-			await merger.join(dir, this.deleteAfterSplitting())
-			this.ux.log(dir)
+		this.ux.startSpinner(this.getSpinnerText());
+		for (const dir of dirsToMerge) {
+			this.ux.setSpinnerStatus(basename(dir));
+			await merger.join(dir, this.deleteAfterSplitting());
+			this.ux.log(dir);
 		}
-		this.ux.stopSpinner(this.getDoneMessage())
+		this.ux.stopSpinner(this.getDoneMessage());
 	}
 
-	async getInputDirs():Promise<string[]> {
-		if(this.flags.input != null){
-			return super.getInputDirs()
+	async getInputDirs(): Promise<string[]> {
+		if (this.flags.input != null) {
+			return super.getInputDirs();
 		}
-		const defaultPath = getDefaultFolder(this.project)
+		const defaultPath = getDefaultFolder(this.project);
 		const labelsDir = join(
 			defaultPath,
 			"main",
 			"default",
 			this.getFolderName()
-		)
-		if(existsSync(labelsDir)) {
-			return [labelsDir]
+		);
+		if (existsSync(labelsDir)) {
+			return [labelsDir];
 		}
-		return []
+		return [];
 	}
 	getDoneMessage(): string {
 		return messages.getMessage("done");

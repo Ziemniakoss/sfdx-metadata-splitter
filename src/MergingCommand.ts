@@ -35,7 +35,7 @@ export default abstract class MergingCommand extends SfdxCommand {
 
 	protected async getInputDirs(): Promise<string[]> {
 		if (this.flags.input != null) {
-			return this.flags.input.split(",").map(dir => dir.trim());
+			return this.flags.input.split(",").map((dir) => dir.trim());
 		}
 		const defaultPath = getDefaultFolder(this.project);
 		const translationsFolder = join(
