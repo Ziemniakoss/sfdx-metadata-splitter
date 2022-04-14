@@ -20,13 +20,17 @@ describe("metadata:labels:merge", () => {
 		"m_l_m",
 		"main",
 		"default",
-		"labels",
+		"labels"
 	);
 	test
 		.command(["metadata:labels:merge", "-i", inputDir, "-r"])
 		.it("Should merge labels", () => {
-			assert.equal(readdirSync(outputDir).length, 1, "There should be only one file after merging");
-			const fullPath = join(outputDir, `CustomLabels${LABELS_EXTENSION}`)
-			assert.equal(existsSync(fullPath), true, "Merged file should exist")
+			assert.equal(
+				readdirSync(outputDir).length,
+				1,
+				"There should be only one file after merging"
+			);
+			const fullPath = join(outputDir, `CustomLabels${LABELS_EXTENSION}`);
+			assert.equal(existsSync(fullPath), true, "Merged file should exist");
 		});
 });

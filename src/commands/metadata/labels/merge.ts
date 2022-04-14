@@ -23,7 +23,7 @@ export default class MergeLabels extends MergingCommand {
 		}),
 		input: flags.string({
 			description: messages.getMessage("flag_input"),
-			char: "i"
+			char: "i",
 		}),
 		remove: flags.boolean({
 			description: messages.getMessage("flag_remove"),
