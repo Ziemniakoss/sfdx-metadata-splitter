@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Canceled</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Custom_Order__c</pageOrSobjectType>
+        <recordType>Custom_Order__c.Canceled</recordType>
+        <type>Flexipage</type>
+        <profile>CEO</profile>
+    </profileActionOverrides>
+</Profile>

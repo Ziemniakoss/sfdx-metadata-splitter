@@ -8,6 +8,6 @@ describe("utils/filesUtils # findAllFiles", () => {
 	const promise = findAllFiles(basePath);
 	it("Should find 8 files", async () => {
 		const result = await promise;
-		assert.equal(result.length, 9);
+		assert.equal(result.length, 10);
 	});
 });

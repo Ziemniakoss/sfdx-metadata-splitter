@@ -36,7 +36,7 @@ export default class SplitLabels extends SplittingCommand {
 	}
 
 	protected getDoneMessage(): string {
-		return "";
+		return messages.getMessage("done");
 	}
 
 	protected getFilesExtension(): string {
@@ -49,5 +49,9 @@ export default class SplitLabels extends SplittingCommand {
 
 	protected getSplitter(): Splitter {
 		return new LabelsSplitter(XmlFormatter.fromFlags(this.flags));
+	}
+
+	protected deleteAfterSplitting(): Boolean {
+		return this.flags["remove-input-file"];
 	}
 }

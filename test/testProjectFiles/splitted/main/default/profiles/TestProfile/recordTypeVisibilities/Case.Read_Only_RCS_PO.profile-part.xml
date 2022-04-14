@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypeVisibilities>
+        <recordType>Case.Read_Only_RCS_PO</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+</Profile>
