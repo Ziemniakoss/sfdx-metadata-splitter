@@ -1,4 +1,5 @@
 # Split metadata files into separate files
+
 [![npm version](https://img.shields.io/npm/v/sfdx-metadata-splitter)](https://www.npmjs.com/package/sfdx-metadata-utils)
 ![labels sre supporters](https://img.shields.io/badge/labels-supported-green)
 ![profiles are supported](https://img.shields.io/badge/profiles-supported-green)
