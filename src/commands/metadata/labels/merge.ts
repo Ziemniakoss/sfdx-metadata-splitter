@@ -21,6 +21,10 @@ export default class MergeLabels extends MergingCommand {
 			description: messages.getMessage("flag_output"),
 			char: "o",
 		}),
+		input: flags.string({
+			description: messages.getMessage("flag_input"),
+			char: "i"
+		}),
 		remove: flags.boolean({
 			description: messages.getMessage("flag_remove"),
 			char: "r",
