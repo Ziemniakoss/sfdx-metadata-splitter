@@ -1,8 +1,8 @@
 import { promises, existsSync } from "fs";
 import { dirname, join } from "path";
-import XmlFormatter from "@utils/xmlFormatter";
-import { XML_NAMESPACE } from "@constants";
-import { writeXmlToFile } from "@utils/filesUtils";
+import XmlFormatter from "../utils/xmlFormatter";
+import { XML_NAMESPACE } from "../constants";
+import { writeXmlToFile } from "../utils/filesUtils";
 
 export default abstract class Splitter {
 	protected xmlFormatter: XmlFormatter;
@@ -11,7 +11,10 @@ export default abstract class Splitter {
 		this.xmlFormatter = xmlFormatter;
 	}
 
-	abstract split(inputFile: string): Promise<unknown>;
+	abstract split(
+		inputFile: string,
+		deleteSourceFiles: boolean
+	): Promise<unknown>;
 
 	/**
 	 * Split metadata into separate files.

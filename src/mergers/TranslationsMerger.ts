@@ -1,9 +1,9 @@
-import Merger from "@mergers//Merger";
+import { basename, dirname, join } from "path";
+import Merger from "./Merger";
 import {
 	SPLITTED_TRANSLATIONS_EXTENSION,
 	TRANSLATIONS_EXTENSION,
-} from "@constants";
-import { basename, dirname, join } from "path";
+} from "../constants";
 
 export default class TranslationsMerger extends Merger {
 	getRootTag(): string {

@@ -1,12 +1,12 @@
-import XmlFormatter from "@utils/xmlFormatter";
+import { rmSync } from "fs";
+import XmlFormatter from "../utils/xmlFormatter";
 import {
 	findAllFilesWithExtension,
 	readXmlFromFile,
 	writeXmlToFile,
-} from "@utils/filesUtils";
-import { XML_NAMESPACE } from "@constants";
-import { sortObjectPropertiesAlphabetically } from "@utils/objectSorters";
-import { rmSync } from "fs";
+} from "../utils/filesUtils";
+import { XML_NAMESPACE } from "../constants";
+import { sortObjectPropertiesAlphabetically } from "../utils/objectSorters";
 
 export default abstract class Merger {
 	protected xmlFormatter: XmlFormatter;

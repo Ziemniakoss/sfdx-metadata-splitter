@@ -1,5 +1,6 @@
 {
 	"name": "sfdx-metadata-splitter",
+	"description": "Split Salesforce metadata files",
 	"version": "2.1.0",
 	"author": "Ziemniakoss",
 	"bugs": "https://github.com/Ziemniakoss/sfdx-metadata-splitter/issues",
@@ -65,7 +66,7 @@
 		"build": "tsc -p .",
 		"postpack": "rm -f oclif.manifest.json",
 		"test": "nyc --extension .ts --require ts-node/register mocha --forbid-only \"test/**/*.test.ts\" --timeout 10000",
-		"prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+		"prepack": "rm -rf lib && tsc -p . && oclif-dev manifest && oclif-dev readme",
 		"version": "oclif-dev readme && git add README.md"
 	}
 }

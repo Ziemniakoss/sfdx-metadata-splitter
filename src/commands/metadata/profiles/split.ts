@@ -1,12 +1,12 @@
 import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
-import { PLUGIN_NAME, PROFILES_EXTENSION } from "@constants";
-import FORMATTING_FLAGS from "@utils/formattingFlags";
-import ProfilesSplitter from "@splitters/ProfilesSplitter";
-import XmlFormatter from "@utils/xmlFormatter";
 
 import SplittingCommand from "../../../SplittingCommand";
-import Splitter from "@splitters/Splitter";
+import { PLUGIN_NAME, PROFILES_EXTENSION } from "../../../constants";
+import FORMATTING_FLAGS from "../../../utils/formattingFlags";
+import Splitter from "../../../splitters/Splitter";
+import ProfilesSplitter from "../../../splitters/ProfilesSplitter";
+import XmlFormatter from "../../../utils/xmlFormatter";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "profiles_split");

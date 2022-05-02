@@ -1,15 +1,15 @@
-import Splitter from "@splitters/Splitter";
-import { SPLITTED_PROFILES_EXTENSION, XML_NAMESPACE } from "@constants";
-import { readXmlFromFile, writeXmlToFile } from "@utils/filesUtils";
 import { basename, join } from "path";
 import { existsSync, promises } from "fs";
+import Splitter from "./Splitter";
+import { readXmlFromFile, writeXmlToFile } from "../utils/filesUtils";
+import { SPLITTED_PROFILES_EXTENSION, XML_NAMESPACE } from "../constants";
 
 export default class ProfilesSplitter extends Splitter {
 	getRootTag(): string {
 		return "Profile";
 	}
 
-	async split(inputFile: string): Promise<unknown> {
+	async split(inputFile: string, deleteSourceFiles: boolean) {
 		const baseOutputDir = this.getBaseDir(inputFile);
 		const profileName = this.getProfileName(inputFile);
 		const outputDir = join(baseOutputDir, profileName);
@@ -17,7 +17,7 @@ export default class ProfilesSplitter extends Splitter {
 			await promises.mkdir(outputDir);
 		}
 		const profileProperties = (await readXmlFromFile(inputFile)).Profile ?? {};
-		return Promise.all([
+		const splittingPromise = Promise.all([
 			this.writeApplicationVisibilities(profileProperties, outputDir),
 			this.writeCategoryGroupVisibilities(profileProperties, outputDir),
 			this.writeClassAccesses(profileProperties, outputDir),
@@ -40,6 +40,10 @@ export default class ProfilesSplitter extends Splitter {
 			this.writeUserPermissions(profileProperties, outputDir),
 			this.writeProfileProperties(profileProperties, outputDir, profileName),
 		]);
+		if (deleteSourceFiles) {
+			return Promise.all([splittingPromise, promises.rm(inputFile)]);
+		}
+		return splittingPromise;
 	}
 
 	async writeApplicationVisibilities(profileProperties, outputDir: string) {

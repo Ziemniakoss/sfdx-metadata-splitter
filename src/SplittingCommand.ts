@@ -16,7 +16,7 @@ export default abstract class SplittingCommand extends SfdxCommand {
 		this.ux.startSpinner(this.getSpinnerText());
 		for (const file of filesToSplit) {
 			this.ux.setSpinnerStatus(file);
-			await splitter.split(file);
+			await splitter.split(file, this.deleteAfterSplitting());
 			if (this.deleteAfterSplitting()) {
 				rmSync(file);
 			}
@@ -42,7 +42,7 @@ export default abstract class SplittingCommand extends SfdxCommand {
 
 	protected abstract getSpinnerText(): string;
 
-	protected deleteAfterSplitting(): Boolean {
+	protected deleteAfterSplitting(): boolean {
 		return this.flags.remove;
 	}
 }

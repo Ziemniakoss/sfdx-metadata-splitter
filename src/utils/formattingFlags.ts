@@ -1,6 +1,6 @@
 import { Messages } from "@salesforce/core";
-import { PLUGIN_NAME } from "@constants";
 import { flags } from "@salesforce/command";
+import { PLUGIN_NAME } from "../constants";
 
 Messages.importMessagesDirectory(__dirname);
 const FORMATTING_MESSAGES = Messages.loadMessages(
