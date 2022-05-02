@@ -1,11 +1,11 @@
 import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
-import TranslationsMerger from "../../../mergers/TranslationsMerger";
-import XmlFormatter from "../../../utils/xmlFormatter";
-import FORMATTING_FLAGS from "../../../utils/formattingFlags";
-import { PLUGIN_NAME } from "../../../constants";
+import TranslationsMerger from "@mergers/TranslationsMerger";
+import XmlFormatter from "@utils/xmlFormatter";
+import FORMATTING_FLAGS from "@utils/formattingFlags";
+import { PLUGIN_NAME } from "@constants";
 import MergingCommand from "../../../MergingCommand";
-import Merger from "../../../mergers/Merger";
+import Merger from "@mergers/Merger";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "translations_merge");

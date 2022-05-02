@@ -1,9 +1,9 @@
-import Splitter from "./Splitter";
-import XmlFormatter from "../utils/xmlFormatter";
-import { readXmlFromFile } from "../utils/filesUtils";
+import Splitter from "@splitters//Splitter";
+import XmlFormatter from "@utils/xmlFormatter";
+import { readXmlFromFile } from "@utils/filesUtils";
 import { join, sep } from "path";
 import { existsSync, mkdirSync } from "fs";
-import { SPLITTED_TRANSLATIONS_EXTENSION } from "../constants";
+import { SPLITTED_TRANSLATIONS_EXTENSION } from "@constants";
 
 export default class TranslationsSplitter extends Splitter {
 	constructor(xmlFormatter: XmlFormatter) {

@@ -1,8 +1,8 @@
 import { promises, existsSync } from "fs";
 import { dirname, join } from "path";
-import XmlFormatter from "../utils/xmlFormatter";
-import { XML_NAMESPACE } from "../constants";
-import { writeXmlToFile } from "../utils/filesUtils";
+import XmlFormatter from "@utils/xmlFormatter";
+import { XML_NAMESPACE } from "@constants";
+import { writeXmlToFile } from "@utils/filesUtils";
 
 export default abstract class Splitter {
 	protected xmlFormatter: XmlFormatter;

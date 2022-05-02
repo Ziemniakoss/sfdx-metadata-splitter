@@ -1,11 +1,11 @@
-import Merger from "./Merger";
-import { LABELS_EXTENSION, XML_NAMESPACE } from "../constants";
+import Merger from "@mergers//Merger";
+import { LABELS_EXTENSION, XML_NAMESPACE } from "@constants";
 import { join } from "path";
 import {
 	findAllFilesWithExtension,
 	readXmlFromFile,
 	writeXmlToFile,
-} from "../utils/filesUtils";
+} from "@utils/filesUtils";
 import { rmSync } from "fs";
 
 export default class LabelsMerger extends Merger {

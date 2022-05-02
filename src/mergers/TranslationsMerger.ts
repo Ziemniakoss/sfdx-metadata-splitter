@@ -1,8 +1,8 @@
-import Merger from "./Merger";
+import Merger from "@mergers//Merger";
 import {
 	SPLITTED_TRANSLATIONS_EXTENSION,
 	TRANSLATIONS_EXTENSION,
-} from "../constants";
+} from "@constants";
 import { basename, dirname, join } from "path";
 
 export default class TranslationsMerger extends Merger {

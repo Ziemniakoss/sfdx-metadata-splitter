@@ -1,5 +1,5 @@
 import { Messages } from "@salesforce/core";
-import { PLUGIN_NAME } from "../constants";
+import { PLUGIN_NAME } from "@constants";
 import { flags } from "@salesforce/command";
 
 Messages.importMessagesDirectory(__dirname);

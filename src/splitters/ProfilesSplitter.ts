@@ -1,6 +1,6 @@
-import Splitter from "./Splitter";
-import { SPLITTED_PROFILES_EXTENSION, XML_NAMESPACE } from "../constants";
-import { readXmlFromFile, writeXmlToFile } from "../utils/filesUtils";
+import Splitter from "@splitters/Splitter";
+import { SPLITTED_PROFILES_EXTENSION, XML_NAMESPACE } from "@constants";
+import { readXmlFromFile, writeXmlToFile } from "@utils/filesUtils";
 import { basename, join } from "path";
 import { existsSync, promises } from "fs";
 

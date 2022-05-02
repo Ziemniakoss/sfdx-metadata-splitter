@@ -1,11 +1,11 @@
 import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
-import { PLUGIN_NAME, TRANSLATIONS_EXTENSION } from "../../../constants";
-import FORMATTING_FLAGS from "../../../utils/formattingFlags";
-import XmlFormatter from "../../../utils/xmlFormatter";
-import TranslationsSplitter from "../../../splitters/TranslationsSplitter";
+import { PLUGIN_NAME, TRANSLATIONS_EXTENSION } from "@constants";
+import FORMATTING_FLAGS from "@utils/formattingFlags";
+import XmlFormatter from "@utils/xmlFormatter";
+import TranslationsSplitter from "@splitters/TranslationsSplitter";
 import SplittingCommand from "../../../SplittingCommand";
-import Splitter from "../../../splitters/Splitter";
+import Splitter from "@splitters/Splitter";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "translations_split");

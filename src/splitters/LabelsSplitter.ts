@@ -1,7 +1,7 @@
-import Splitter from "./Splitter";
-import { LABELS_EXTENSION, XML_NAMESPACE } from "../constants";
+import Splitter from "@splitters//Splitter";
+import { LABELS_EXTENSION, XML_NAMESPACE } from "@constants";
 import { dirname, join } from "path";
-import { readXmlFromFile, writeXmlToFile } from "../utils/filesUtils";
+import { readXmlFromFile, writeXmlToFile } from "@utils/filesUtils";
 
 export default class LabelsSplitter extends Splitter {
 	getRootTag(): string {

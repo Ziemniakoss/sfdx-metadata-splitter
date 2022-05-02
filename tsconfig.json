@@ -1,9 +1,15 @@
 {
-	"extends": "@salesforce/dev-config/tsconfig",
 	"compilerOptions": {
 		"outDir": "lib",
 		"rootDir": "src",
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"paths": {
+			"@mergers/*": ["mergers/*"],
+			"@splitters/*": ["splitters/*"],
+			"@utils/*": ["utils/*"],
+			"@constants": ["constants.ts"]
+		},
+		"baseUrl": "src"
 	},
 	"include": ["./src/**/*.ts"]
 }
