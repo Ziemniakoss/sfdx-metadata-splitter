@@ -1,7 +1,10 @@
 import { join, sep } from "path";
 import { existsSync, mkdirSync, promises } from "fs";
 import Splitter from "./Splitter";
-import { SPLITTED_TRANSLATIONS_EXTENSION, TRANSLATIONS_ROOT_TAG } from "../constants";
+import {
+	SPLITTED_TRANSLATIONS_EXTENSION,
+	TRANSLATIONS_ROOT_TAG,
+} from "../constants";
 
 export default class TranslationsSplitter extends Splitter {
 	async split(inputFile: string, deleteSourceFiles: boolean) {
@@ -158,6 +161,6 @@ export default class TranslationsSplitter extends Splitter {
 		);
 	}
 	getRootTag(): string {
-		return TRANSLATIONS_ROOT_TAG
+		return TRANSLATIONS_ROOT_TAG;
 	}
 }
