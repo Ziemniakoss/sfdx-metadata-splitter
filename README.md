@@ -1,10 +1,10 @@
 # Split metadata files into separate files
 
-[![npm version](https://img.shields.io/npm/v/sfdx-metadata-splitter)](https://www.npmjs.com/package/sfdx-metadata-utils)
-![labels sre supporters](https://img.shields.io/badge/labels-supported-green)
-![profiles are supported](https://img.shields.io/badge/profiles-supported-green)
-![translations are supported](https://img.shields.io/badge/translations-supported-green)
-![permission sets support is in progress](https://img.shields.io/badge/permission%20sets-in%20progress-blue)
+[![npm version](https://img.shields.io/npm/v/sfdx-metadata-splitter)](https://www.npmjs.com/package/sfdx-metadata-splitter)
+[![labels sre supporters](https://img.shields.io/badge/labels-supported-green)](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customlabels.htm#!)
+[![profiles are supported](https://img.shields.io/badge/profiles-supported-green)](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profile.htm)
+[![translations are supported](https://img.shields.io/badge/translations-supported-green)](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_translations.htm)
+[![permission sets support is in progress](https://img.shields.io/badge/permission%20sets-in%20progress-blue)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 Unofficial plugin for splitting metadata files into smaller ones.
 

@@ -1,12 +1,12 @@
-import Merger from "@mergers//Merger";
-import { LABELS_EXTENSION, XML_NAMESPACE } from "@constants";
 import { join } from "path";
+import { rmSync } from "fs";
+import Merger from "./Merger";
+import { LABELS_EXTENSION, LABELS_ROOT_TAG, XML_NAMESPACE } from "../constants";
 import {
 	findAllFilesWithExtension,
 	readXmlFromFile,
 	writeXmlToFile,
-} from "@utils/filesUtils";
-import { rmSync } from "fs";
+} from "../utils/filesUtils";
 
 export default class LabelsMerger extends Merger {
 	getOutputFile(inputDir: string): string {
@@ -14,7 +14,7 @@ export default class LabelsMerger extends Merger {
 	}
 
 	getRootTag(): string {
-		return "CustomLabels";
+		return LABELS_ROOT_TAG;
 	}
 
 	getSplittedExtension(): string {

@@ -4,7 +4,6 @@ import {
 	findAllFilesWithExtension,
 	getDefaultFolder,
 } from "./utils/filesUtils";
-import { rmSync } from "fs";
 
 export default abstract class SplittingCommand extends SfdxCommand {
 	protected abstract getSplitter(): Splitter;
@@ -16,10 +15,7 @@ export default abstract class SplittingCommand extends SfdxCommand {
 		this.ux.startSpinner(this.getSpinnerText());
 		for (const file of filesToSplit) {
 			this.ux.setSpinnerStatus(file);
-			await splitter.split(file);
-			if (this.deleteAfterSplitting()) {
-				rmSync(file);
-			}
+			await splitter.split(file, this.deleteAfterSplitting());
 			this.ux.log(file);
 		}
 
@@ -42,7 +38,7 @@ export default abstract class SplittingCommand extends SfdxCommand {
 
 	protected abstract getSpinnerText(): string;
 
-	protected deleteAfterSplitting(): Boolean {
+	protected deleteAfterSplitting(): boolean {
 		return this.flags.remove;
 	}
 }

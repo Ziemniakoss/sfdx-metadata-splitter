@@ -2,14 +2,7 @@
 	"compilerOptions": {
 		"outDir": "lib",
 		"rootDir": "src",
-		"skipLibCheck": true,
-		"paths": {
-			"@mergers/*": ["mergers/*"],
-			"@splitters/*": ["splitters/*"],
-			"@utils/*": ["utils/*"],
-			"@constants": ["constants.ts"]
-		},
-		"baseUrl": "src"
+		"skipLibCheck": true
 	},
 	"include": ["./src/**/*.ts"]
 }

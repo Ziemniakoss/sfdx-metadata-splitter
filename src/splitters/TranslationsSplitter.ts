@@ -1,16 +1,13 @@
-import Splitter from "@splitters//Splitter";
-import XmlFormatter from "@utils/xmlFormatter";
-import { readXmlFromFile } from "@utils/filesUtils";
 import { join, sep } from "path";
-import { existsSync, mkdirSync } from "fs";
-import { SPLITTED_TRANSLATIONS_EXTENSION } from "@constants";
+import { existsSync, mkdirSync, promises } from "fs";
+import Splitter from "./Splitter";
+import {
+	SPLITTED_TRANSLATIONS_EXTENSION,
+	TRANSLATIONS_ROOT_TAG,
+} from "../constants";
 
 export default class TranslationsSplitter extends Splitter {
-	constructor(xmlFormatter: XmlFormatter) {
-		super(xmlFormatter);
-	}
-
-	async split(inputFile: string): Promise<unknown> {
+	async split(inputFile: string, deleteSourceFiles: boolean) {
 		const baseOutputDir = this.getBaseDir(inputFile);
 		const splittedPathToInputFile = inputFile.split(sep);
 		const fileName =
@@ -26,7 +23,7 @@ export default class TranslationsSplitter extends Splitter {
 
 		//@ts-ignore
 		const translations = (await readXmlFromFile(inputFile)).Translations ?? {};
-		return Promise.all([
+		const splittingPromise = Promise.all([
 			this.writeBotsTranslations(translations, outputDir),
 			this.writeApplicationsTranslations(translations, outputDir),
 			this.writeCustomLabelsTranslations(translations, outputDir),
@@ -39,6 +36,10 @@ export default class TranslationsSplitter extends Splitter {
 			this.writeReportTypesTranslations(translations, outputDir),
 			this.writeScontrolsTranslations(translations, outputDir),
 		]);
+		if (deleteSourceFiles) {
+			return Promise.all([splittingPromise, promises.rm(inputFile)]);
+		}
+		return splittingPromise;
 	}
 
 	private async writeBotsTranslations(translations, outputDir: string) {
@@ -160,6 +161,6 @@ export default class TranslationsSplitter extends Splitter {
 		);
 	}
 	getRootTag(): string {
-		return "Translations";
+		return TRANSLATIONS_ROOT_TAG;
 	}
 }

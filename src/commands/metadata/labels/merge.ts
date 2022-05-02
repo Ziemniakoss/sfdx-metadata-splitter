@@ -1,13 +1,13 @@
 import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
-import { PLUGIN_NAME } from "@constants";
 import MergingCommand from "../../../MergingCommand";
-import Merger from "@mergers/Merger";
-import LabelsMerger from "@mergers/LabelsMerger";
-import XmlFormatter from "@utils/xmlFormatter";
 import { basename, join } from "path";
-import { getDefaultFolder } from "@utils/filesUtils";
 import { existsSync } from "fs";
+import { PLUGIN_NAME } from "../../../constants";
+import { getDefaultFolder } from "../../../utils/filesUtils";
+import XmlFormatter from "../../../utils/xmlFormatter";
+import LabelsMerger from "../../../mergers/LabelsMerger";
+import Merger from "../../../mergers/Merger";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "labels_merge");
