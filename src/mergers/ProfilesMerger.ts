@@ -1,10 +1,10 @@
 import { basename, dirname, join } from "path";
 import Merger from "./Merger";
-import { PROFILES_EXTENSION, SPLITTED_PROFILES_EXTENSION } from "../constants";
+import { PROFILES_EXTENSION, PROFILES_ROOT_TAG, SPLITTED_PROFILES_EXTENSION } from "../constants";
 
 export default class ProfilesMerger extends Merger {
 	getRootTag(): string {
-		return "Profile";
+		return PROFILES_ROOT_TAG;
 	}
 
 	getSplittedExtension(): string {

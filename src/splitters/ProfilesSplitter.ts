@@ -2,11 +2,11 @@ import { basename, join } from "path";
 import { existsSync, promises } from "fs";
 import Splitter from "./Splitter";
 import { readXmlFromFile, writeXmlToFile } from "../utils/filesUtils";
-import { SPLITTED_PROFILES_EXTENSION, XML_NAMESPACE } from "../constants";
+import { PROFILES_ROOT_TAG, SPLITTED_PROFILES_EXTENSION, XML_NAMESPACE } from "../constants";
 
 export default class ProfilesSplitter extends Splitter {
 	getRootTag(): string {
-		return "Profile";
+		return PROFILES_ROOT_TAG;
 	}
 
 	async split(inputFile: string, deleteSourceFiles: boolean) {

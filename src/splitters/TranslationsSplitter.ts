@@ -1,14 +1,9 @@
 import { join, sep } from "path";
 import { existsSync, mkdirSync, promises } from "fs";
 import Splitter from "./Splitter";
-import XmlFormatter from "../utils/xmlFormatter";
-import { SPLITTED_TRANSLATIONS_EXTENSION } from "../constants";
+import { SPLITTED_TRANSLATIONS_EXTENSION, TRANSLATIONS_ROOT_TAG } from "../constants";
 
 export default class TranslationsSplitter extends Splitter {
-	constructor(xmlFormatter: XmlFormatter) {
-		super(xmlFormatter);
-	}
-
 	async split(inputFile: string, deleteSourceFiles: boolean) {
 		const baseOutputDir = this.getBaseDir(inputFile);
 		const splittedPathToInputFile = inputFile.split(sep);
@@ -163,6 +158,6 @@ export default class TranslationsSplitter extends Splitter {
 		);
 	}
 	getRootTag(): string {
-		return "Translations";
+		return TRANSLATIONS_ROOT_TAG
 	}
 }
