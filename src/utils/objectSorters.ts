@@ -9,7 +9,7 @@
  */
 import { compare } from "./comparators";
 
-export function sortObjectPropertiesAlphabetically(obj?: any, asc = true): any {
+export function sortObjectPropertiesAlphabetically<T>(obj?:T, asc = true): T{
 	if (obj == null) {
 		return null;
 	}
@@ -19,5 +19,6 @@ export function sortObjectPropertiesAlphabetically(obj?: any, asc = true): any {
 	for (const prop of properties) {
 		sortedObject[prop] = obj[prop];
 	}
+	// @ts-ignore
 	return sortedObject;
 }

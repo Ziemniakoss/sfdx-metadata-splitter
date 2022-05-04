@@ -10,10 +10,10 @@
  * @param caseInsensitive should comparison be insensitive
  * @param asc should values be sorted in ascending order
  */
-export function compareByField(
-	a,
-	b,
-	fieldName: string,
+export function compareByField<T>(
+	a:T,
+	b:T,
+	fieldName: keyof T,
 	caseInsensitive = true,
 	asc = true
 ): number {
@@ -25,7 +25,22 @@ export function compareByField(
 	if (Array.isArray(valueInB)) {
 		valueInB = valueInB[0];
 	}
+	// @ts-ignore
 	return compare(valueInA, valueInB, caseInsensitive, asc);
+}
+
+export function compareByFields<T>(
+	a:T,
+	b:T,
+	fields: {fieldName:keyof T, asc?:boolean, caseInsensitive?:boolean}[]
+):number {
+	for(const field of fields) {
+		const comparatorResult = compareByField(a, b, field.fieldName, field.caseInsensitive, field.asc)
+		if(comparatorResult != 0) {
+			return comparatorResult
+		}
+	}
+	return 0;
 }
 
 export function compare(
