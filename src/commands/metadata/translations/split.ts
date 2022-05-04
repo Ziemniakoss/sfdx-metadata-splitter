@@ -6,11 +6,13 @@ import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import TranslationsSplitter from "../../../splitters/TranslationsSplitter";
 import XmlFormatter from "../../../utils/xmlFormatter";
 import Splitter from "../../../splitters/Splitter";
+import TranslationsSorter from "../../../sorters/TranslationsSorter";
+import Translations from "../../../metadataTypes/Translations";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "translations_split");
 
-export default class SplitTranslations extends SplittingCommand {
+export default class SplitTranslations extends SplittingCommand<Translations> {
 	public static description = messages.getMessage("description");
 	protected static requiresProject = true;
 
@@ -38,7 +40,10 @@ export default class SplitTranslations extends SplittingCommand {
 		return messages.getMessage("splitting");
 	}
 
-	protected getSplitter(): Splitter {
-		return new TranslationsSplitter(XmlFormatter.fromFlags(this.flags));
+	protected getSplitter(): Splitter<Translations> {
+		return new TranslationsSplitter(
+			XmlFormatter.fromFlags(this.flags),
+			new TranslationsSorter()
+		);
 	}
 }

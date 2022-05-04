@@ -1,4 +1,4 @@
 export default interface ProfileExternalDataSourceAccess {
-	enabled: boolean[]
-	externalDataSource: string[]
+	enabled: boolean[];
+	externalDataSource: string[];
 }

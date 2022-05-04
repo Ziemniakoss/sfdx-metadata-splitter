@@ -1,5 +1,5 @@
 export default interface ProfileLoginIpRange {
-	description:string[]
-	endAddress:string[]
-	startAddress:string[]
+	description: string[];
+	endAddress: string[];
+	startAddress: string[];
 }

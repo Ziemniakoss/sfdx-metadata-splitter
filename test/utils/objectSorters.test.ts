@@ -12,13 +12,13 @@ describe("utils/objectSorters # sortObjectPropertiesAlphabetically", () => {
 			fck: "ptn",
 			a: true,
 		};
-		const result = sortObjectPropertiesAlphabetically({...input}, false)
-		it("shouldn't change", () => assert.deepEqual(result, input))
+		const result = sortObjectPropertiesAlphabetically({ ...input }, false);
+		it("shouldn't change", () => assert.deepEqual(result, input));
 		it("should sort ascending", () => {
-			const keys = Object.keys(result)
-			equal(keys[0], "fck")
-			equal(keys[1], "a")
-		})
+			const keys = Object.keys(result);
+			equal(keys[0], "fck");
+			equal(keys[1], "a");
+		});
 	});
 	context("ascending", () => {
 		const input = {
@@ -26,14 +26,13 @@ describe("utils/objectSorters # sortObjectPropertiesAlphabetically", () => {
 			alfa: true,
 			beta: 123,
 		};
-		const result = sortObjectPropertiesAlphabetically({...input})
-		it("shouldn't change", () => assert.deepEqual(result, input))
+		const result = sortObjectPropertiesAlphabetically({ ...input });
+		it("shouldn't change", () => assert.deepEqual(result, input));
 		it("should sort ascending", () => {
-			const keys = Object.keys(result)
-			equal(keys[0], "alfa")
-			equal(keys[1], "beta")
-			equal(keys[2], "gamma")
-		})
+			const keys = Object.keys(result);
+			equal(keys[0], "alfa");
+			equal(keys[1], "beta");
+			equal(keys[2], "gamma");
+		});
 	});
 });
-

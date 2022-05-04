@@ -7,13 +7,13 @@ import {
 } from "../utils/filesUtils";
 import { XML_NAMESPACE } from "../constants";
 import { sortObjectPropertiesAlphabetically } from "../utils/objectSorters";
+import MetadataSorter from "../sorters/MetadataSorter";
 
-export default abstract class Merger {
-	protected xmlFormatter: XmlFormatter;
-
-	public constructor(xmlFormatter: XmlFormatter) {
-		this.xmlFormatter = xmlFormatter;
-	}
+export default abstract class Merger<T> {
+	public constructor(
+		protected readonly xmlFormatter: XmlFormatter,
+		protected readonly metadataSorter: MetadataSorter<T>
+	) {}
 
 	public async join(inputDir: string, removeSource: boolean) {
 		const outputFile = this.getOutputFile(inputDir);

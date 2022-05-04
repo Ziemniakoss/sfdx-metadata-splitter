@@ -7,11 +7,12 @@ import Merger from "../../../mergers/Merger";
 import ProfilesMerger from "../../../mergers/ProfilesMerger";
 import XmlFormatter from "../../../utils/xmlFormatter";
 import ProfilesSorter from "../../../sorters/ProfilesSorter";
+import Profile from "../../../metadataTypes/Profile";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "profiles_merge");
 
-export default class MergeProfiles extends MergingCommand {
+export default class MergeProfiles extends MergingCommand<Profile> {
 	public static description = messages.getMessage("description");
 	protected static requiresProject = true;
 	public static flagsConfig = {
@@ -40,8 +41,11 @@ export default class MergeProfiles extends MergingCommand {
 		return "profiles";
 	}
 
-	getMerger(): Merger {
-		return new ProfilesMerger(XmlFormatter.fromFlags(this.flags), new ProfilesSorter());
+	getMerger(): Merger<Profile> {
+		return new ProfilesMerger(
+			XmlFormatter.fromFlags(this.flags),
+			new ProfilesSorter()
+		);
 	}
 
 	getSpinnerText(): string {

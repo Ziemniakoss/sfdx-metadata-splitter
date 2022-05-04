@@ -3,13 +3,13 @@ import { dirname, join } from "path";
 import XmlFormatter from "../utils/xmlFormatter";
 import { XML_NAMESPACE } from "../constants";
 import { writeXmlToFile } from "../utils/filesUtils";
+import MetadataSorter from "../sorters/MetadataSorter";
 
-export default abstract class Splitter {
-	protected xmlFormatter: XmlFormatter;
-
-	public constructor(xmlFormatter: XmlFormatter) {
-		this.xmlFormatter = xmlFormatter;
-	}
+export default abstract class Splitter<MetadataType> {
+	public constructor(
+		protected readonly xmlFormatter: XmlFormatter,
+		protected readonly metadataSorter: MetadataSorter<MetadataType>
+	) {}
 
 	abstract split(
 		inputFile: string,

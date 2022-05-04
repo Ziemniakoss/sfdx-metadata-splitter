@@ -5,8 +5,9 @@ import {
 	TRANSLATIONS_EXTENSION,
 	TRANSLATIONS_ROOT_TAG,
 } from "../constants";
+import Translations from "../metadataTypes/Translations";
 
-export default class TranslationsMerger extends Merger {
+export default class TranslationsMerger extends Merger<Translations> {
 	getRootTag(): string {
 		return TRANSLATIONS_ROOT_TAG;
 	}

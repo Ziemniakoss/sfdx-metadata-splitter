@@ -19,28 +19,28 @@ import ProfileTabVisibility from "./ProfileTabVisibility";
 import ProfileUserPermission from "./ProfileUserPermission";
 
 export default interface Profile {
-	applicationVisibilities?:ProfileApplicationVisibility[]
-	categoryGroupVisibilities?:ProfileCategoryGroupVisibility[]
-	classAccesses?: ProfileApexClassAccess[]
-	custom?: boolean[]
-	customMetadataTypeAccesses?: ProfileCustomMetadataTypeAccess[]
-	customPermissions?: ProfileCustomPermissions[]
-	customSettingAccesses?: ProfileCustomSettingAccesses[]
-	description?: string
-	externalDataSourceAccesses?: ProfileExternalDataSourceAccess[]
-	fieldLevelSecurities?: ProfileFieldLevelSecurity[]
-	fieldPermissions?: ProfileFieldLevelSecurity[]
-	flowAccesses?: ProfileFlowAccess[]
-	fullName?: string[]
-	layoutAssignments?:ProfileLayoutAssignments[]
-	loginFlows?: LoginFlow[]
-	loginHours?: ProfileLoginHours[]
-	loginIpRanges?: ProfileLoginIpRange[]
-	objectPermissions?: ProfileObjectPermissions[]
-	pageAccesses?: ProfileApexPageAccess[]
-	profileActionOverrides?: ProfileActionOverride[]
-	recordTypeVisibilities?: ProfileRecordTypeVisibility[]
-	tabVisibilities?: ProfileTabVisibility[]
-	userLicense?: string[]
-	userPermissions?: ProfileUserPermission[]
+	applicationVisibilities?: ProfileApplicationVisibility[];
+	categoryGroupVisibilities?: ProfileCategoryGroupVisibility[];
+	classAccesses?: ProfileApexClassAccess[];
+	custom?: boolean[];
+	customMetadataTypeAccesses?: ProfileCustomMetadataTypeAccess[];
+	customPermissions?: ProfileCustomPermissions[];
+	customSettingAccesses?: ProfileCustomSettingAccesses[];
+	description?: string;
+	externalDataSourceAccesses?: ProfileExternalDataSourceAccess[];
+	fieldLevelSecurities?: ProfileFieldLevelSecurity[];
+	fieldPermissions?: ProfileFieldLevelSecurity[];
+	flowAccesses?: ProfileFlowAccess[];
+	fullName?: string[];
+	layoutAssignments?: ProfileLayoutAssignments[];
+	loginFlows?: LoginFlow[];
+	loginHours?: ProfileLoginHours[];
+	loginIpRanges?: ProfileLoginIpRange[];
+	objectPermissions?: ProfileObjectPermissions[];
+	pageAccesses?: ProfileApexPageAccess[];
+	profileActionOverrides?: ProfileActionOverride[];
+	recordTypeVisibilities?: ProfileRecordTypeVisibility[];
+	tabVisibilities?: ProfileTabVisibility[];
+	userLicense?: string[];
+	userPermissions?: ProfileUserPermission[];
 }

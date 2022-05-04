@@ -5,8 +5,8 @@ import {
 	getDefaultFolder,
 } from "./utils/filesUtils";
 
-export default abstract class SplittingCommand extends SfdxCommand {
-	protected abstract getSplitter(): Splitter;
+export default abstract class SplittingCommand<T> extends SfdxCommand {
+	protected abstract getSplitter(): Splitter<T>;
 
 	async run() {
 		const filesToSplit = await this.getFilesToSplit();

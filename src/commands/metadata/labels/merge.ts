@@ -6,13 +6,15 @@ import { existsSync } from "fs";
 import { PLUGIN_NAME } from "../../../constants";
 import { getDefaultFolder } from "../../../utils/filesUtils";
 import XmlFormatter from "../../../utils/xmlFormatter";
-import LabelsMerger from "../../../mergers/LabelsMerger";
+import CustomLabelsMerger from "../../../mergers/CustomLabelsMerger";
 import Merger from "../../../mergers/Merger";
+import CustomLabels from "../../../metadataTypes/CustomLabels";
+import CustomLabelsSorter from "../../../sorters/CustomLabelsSorter";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "labels_merge");
 
-export default class MergeLabels extends MergingCommand {
+export default class MergeCustomLabels extends MergingCommand<CustomLabels> {
 	public static description = messages.getMessage("description");
 
 	protected static requiresProject = true;
@@ -69,8 +71,11 @@ export default class MergeLabels extends MergingCommand {
 		return "labels";
 	}
 
-	getMerger(): Merger {
-		return new LabelsMerger(XmlFormatter.fromFlags(this.flags));
+	getMerger(): Merger<CustomLabels> {
+		return new CustomLabelsMerger(
+			XmlFormatter.fromFlags(this.flags),
+			new CustomLabelsSorter()
+		);
 	}
 
 	getSpinnerText(): string {

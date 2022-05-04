@@ -7,8 +7,9 @@ import {
 	SPLITTED_PROFILES_EXTENSION,
 	XML_NAMESPACE,
 } from "../constants";
+import Profile from "../metadataTypes/Profile";
 
-export default class ProfilesSplitter extends Splitter {
+export default class ProfilesSplitter extends Splitter<Profile> {
 	getRootTag(): string {
 		return PROFILES_ROOT_TAG;
 	}

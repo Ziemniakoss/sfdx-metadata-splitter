@@ -7,17 +7,16 @@ import {
 	readXmlFromFile,
 	writeXmlToFile,
 } from "../utils/filesUtils";
-import { sortObjectPropertiesAlphabetically } from "../utils/objectSorters";
-import { compareByField } from "../utils/comparators";
+import CustomLabels from "../metadataTypes/CustomLabels";
 
-export default class LabelsMerger extends Merger {
+export default class CustomLabelsMerger extends Merger<CustomLabels> {
 	getOutputFile(inputDir: string): string {
 		return join(inputDir, `CustomLabels${LABELS_EXTENSION}`);
 	}
 
-	getRootTag = () => LABELS_ROOT_TAG
+	getRootTag = () => LABELS_ROOT_TAG;
 
-	getSplittedExtension = () => LABELS_EXTENSION
+	getSplittedExtension = () => LABELS_EXTENSION;
 
 	public async join(inputDir: string, removeSource: boolean) {
 		const filesToMerge = await findAllFilesWithExtension(
@@ -44,7 +43,11 @@ export default class LabelsMerger extends Merger {
 			}
 		}
 
-		await writeXmlToFile(outputFile, this.sortElements(fullXml), this.xmlFormatter);
+		await writeXmlToFile(
+			outputFile,
+			this.sortElements(fullXml),
+			this.xmlFormatter
+		);
 		if (removeSource) {
 			for (const mergedFile of filesToMerge) {
 				if (mergedFile != outputFile) {
@@ -52,17 +55,5 @@ export default class LabelsMerger extends Merger {
 				}
 			}
 		}
-	}
-
-	protected sortElements(xml)  {
-		const labels = xml[this.getRootTag()]
-			?.labels
-			?.map(label => sortObjectPropertiesAlphabetically(label))
-			.sort((label1, label2) => compareByField(label1, label2, "fullName"))
-		if(labels == null) {
-			return xml
-		}
-		xml[this.getRootTag()].labels = labels
-		return xml
 	}
 }

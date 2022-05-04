@@ -1,16 +1,17 @@
-import { flags } from "@salesforce/command";
-import { Messages } from "@salesforce/core";
-import SplittingCommand from "../../../SplittingCommand";
-import { LABELS_EXTENSION, PLUGIN_NAME } from "../../../constants";
+import CustomLabels from "../../../metadataTypes/CustomLabels";
+import CustomLabelsSorter from "../../../sorters/CustomLabelsSorter";
+import CustomLabelsSplitter from "../../../splitters/CustomLabelsSplitter";
 import FORMATTING_FLAGS from "../../../utils/formattingFlags";
-import Splitter from "../../../splitters/Splitter";
-import LabelsSplitter from "../../../splitters/LabelsSplitter";
+import SplittingCommand from "../../../SplittingCommand";
 import XmlFormatter from "../../../utils/xmlFormatter";
+import { LABELS_EXTENSION, PLUGIN_NAME } from "../../../constants";
+import { Messages } from "@salesforce/core";
+import { flags } from "@salesforce/command";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "labels_split");
 
-export default class SplitLabels extends SplittingCommand {
+export default class SplitCustomLabels extends SplittingCommand<CustomLabels> {
 	public static description = messages.getMessage("description");
 	protected static requiresProject = true;
 
@@ -35,21 +36,17 @@ export default class SplitLabels extends SplittingCommand {
 		return super.run();
 	}
 
-	protected getDoneMessage(): string {
-		return messages.getMessage("done");
-	}
+	protected getDoneMessage = () => messages.getMessage("done");
 
-	protected getFilesExtension(): string {
-		return LABELS_EXTENSION;
-	}
+	protected getFilesExtension = () => LABELS_EXTENSION;
 
-	protected getSpinnerText(): string {
-		return messages.getMessage("splitting");
-	}
+	protected getSpinnerText = () => messages.getMessage("splitting");
 
-	protected getSplitter(): Splitter {
-		return new LabelsSplitter(XmlFormatter.fromFlags(this.flags));
-	}
+	protected getSplitter = () =>
+		new CustomLabelsSplitter(
+			XmlFormatter.fromFlags(this.flags),
+			new CustomLabelsSorter()
+		);
 
 	protected deleteAfterSplitting(): boolean {
 		return this.flags["remove-input-file"];

@@ -1,4 +1,4 @@
 export default interface ProfileFlowAccess {
-	enabled: boolean[]
-	flow: string[]
+	enabled: boolean[];
+	flow: string[];
 }

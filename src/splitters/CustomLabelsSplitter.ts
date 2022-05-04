@@ -3,8 +3,9 @@ import { promises } from "fs";
 import Splitter from "./Splitter";
 import { readXmlFromFile, writeXmlToFile } from "../utils/filesUtils";
 import { LABELS_EXTENSION, LABELS_ROOT_TAG, XML_NAMESPACE } from "../constants";
+import CustomLabels from "../metadataTypes/CustomLabels";
 
-export default class LabelsSplitter extends Splitter {
+export default class CustomLabelsSplitter extends Splitter<CustomLabels> {
 	getRootTag(): string {
 		return LABELS_ROOT_TAG;
 	}
@@ -33,7 +34,11 @@ export default class LabelsSplitter extends Splitter {
 		};
 		const labelName = label.fullName[0];
 		const fileName = join(outputDir, `${labelName}${LABELS_EXTENSION}`);
-		await writeXmlToFile(fileName, fullXml, this.xmlFormatter);
+		await writeXmlToFile(
+			fileName,
+			this.metadataSorter.sortMetadata(fullXml),
+			this.xmlFormatter
+		);
 		return fileName;
 	}
 }

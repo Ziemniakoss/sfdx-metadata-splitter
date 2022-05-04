@@ -1,6 +1,6 @@
 export default interface ProfileRecordTypeVisibility {
-	default: boolean[]
-	personAccountDefault: boolean[]
-	recordType:string[]
-	visible:boolean[]
+	default: boolean[];
+	personAccountDefault: boolean[];
+	recordType: string[];
+	visible: boolean[];
 }

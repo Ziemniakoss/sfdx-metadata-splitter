@@ -5,8 +5,9 @@ import {
 	SPLITTED_TRANSLATIONS_EXTENSION,
 	TRANSLATIONS_ROOT_TAG,
 } from "../constants";
+import Translations from "../metadataTypes/Translations";
 
-export default class TranslationsSplitter extends Splitter {
+export default class TranslationsSplitter extends Splitter<Translations> {
 	async split(inputFile: string, deleteSourceFiles: boolean) {
 		const baseOutputDir = this.getBaseDir(inputFile);
 		const splittedPathToInputFile = inputFile.split(sep);

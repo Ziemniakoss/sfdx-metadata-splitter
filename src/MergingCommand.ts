@@ -3,8 +3,8 @@ import Merger from "./mergers/Merger";
 import { getAllDirs, getDefaultFolder } from "./utils/filesUtils";
 import { basename, join } from "path";
 
-export default abstract class MergingCommand extends SfdxCommand {
-	abstract getMerger(): Merger;
+export default abstract class MergingCommand<T> extends SfdxCommand {
+	abstract getMerger(): Merger<T>;
 
 	async run() {
 		const merger = this.getMerger();

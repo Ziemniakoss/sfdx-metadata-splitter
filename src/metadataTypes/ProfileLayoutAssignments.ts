@@ -1,4 +1,4 @@
 export default interface ProfileLayoutAssignments {
-	layout: string[]
-	recordType: string[]
+	layout: string[];
+	recordType: string[];
 }

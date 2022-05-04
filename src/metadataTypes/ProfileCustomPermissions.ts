@@ -1,4 +1,4 @@
 export default interface ProfileCustomPermissions {
-	enabled: boolean[]
-	name: string[]
+	enabled: boolean[];
+	name: string[];
 }

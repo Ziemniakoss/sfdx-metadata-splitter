@@ -6,11 +6,13 @@ import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import Merger from "../../../mergers/Merger";
 import TranslationsMerger from "../../../mergers/TranslationsMerger";
 import XmlFormatter from "../../../utils/xmlFormatter";
+import TranslationsSorter from "../../../sorters/TranslationsSorter";
+import Translations from "../../../metadataTypes/Translations";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "translations_merge");
 
-export default class MergeTranslations extends MergingCommand {
+export default class MergeTranslations extends MergingCommand<Translations> {
 	public static description = messages.getMessage("description");
 
 	protected static requiresProject = true;
@@ -39,8 +41,11 @@ export default class MergeTranslations extends MergingCommand {
 		return "translations";
 	}
 
-	getMerger(): Merger {
-		return new TranslationsMerger(XmlFormatter.fromFlags(this.flags));
+	getMerger(): Merger<Translations> {
+		return new TranslationsMerger(
+			XmlFormatter.fromFlags(this.flags),
+			new TranslationsSorter()
+		);
 	}
 
 	getSpinnerText(): string {

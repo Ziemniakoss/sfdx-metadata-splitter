@@ -7,11 +7,13 @@ import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import Splitter from "../../../splitters/Splitter";
 import ProfilesSplitter from "../../../splitters/ProfilesSplitter";
 import XmlFormatter from "../../../utils/xmlFormatter";
+import Profile from "../../../metadataTypes/Profile";
+import ProfilesSorter from "../../../sorters/ProfilesSorter";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "profiles_split");
 
-export default class SplitProfiles extends SplittingCommand {
+export default class SplitProfiles extends SplittingCommand<Profile> {
 	public static description = messages.getMessage("description");
 	protected static requiresProject = true;
 	public static flagsConfig = {
@@ -44,7 +46,10 @@ export default class SplitProfiles extends SplittingCommand {
 		return messages.getMessage("splitting");
 	}
 
-	protected getSplitter(): Splitter {
-		return new ProfilesSplitter(XmlFormatter.fromFlags(this.flags));
+	protected getSplitter(): Splitter<Profile> {
+		return new ProfilesSplitter(
+			XmlFormatter.fromFlags(this.flags),
+			new ProfilesSorter()
+		);
 	}
 }

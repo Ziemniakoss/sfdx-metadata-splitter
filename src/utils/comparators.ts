@@ -11,8 +11,8 @@
  * @param asc should values be sorted in ascending order
  */
 export function compareByField<T>(
-	a:T,
-	b:T,
+	a: T,
+	b: T,
 	fieldName: keyof T,
 	caseInsensitive = true,
 	asc = true
@@ -30,14 +30,20 @@ export function compareByField<T>(
 }
 
 export function compareByFields<T>(
-	a:T,
-	b:T,
-	fields: {fieldName:keyof T, asc?:boolean, caseInsensitive?:boolean}[]
-):number {
-	for(const field of fields) {
-		const comparatorResult = compareByField(a, b, field.fieldName, field.caseInsensitive, field.asc)
-		if(comparatorResult != 0) {
-			return comparatorResult
+	a: T,
+	b: T,
+	fields: { fieldName: keyof T; asc?: boolean; caseInsensitive?: boolean }[]
+): number {
+	for (const field of fields) {
+		const comparatorResult = compareByField(
+			a,
+			b,
+			field.fieldName,
+			field.caseInsensitive,
+			field.asc
+		);
+		if (comparatorResult != 0) {
+			return comparatorResult;
 		}
 	}
 	return 0;
