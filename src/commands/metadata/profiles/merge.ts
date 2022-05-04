@@ -6,6 +6,7 @@ import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import Merger from "../../../mergers/Merger";
 import ProfilesMerger from "../../../mergers/ProfilesMerger";
 import XmlFormatter from "../../../utils/xmlFormatter";
+import ProfilesSorter from "../../../sorters/ProfilesSorter";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "profiles_merge");
@@ -40,7 +41,7 @@ export default class MergeProfiles extends MergingCommand {
 	}
 
 	getMerger(): Merger {
-		return new ProfilesMerger(XmlFormatter.fromFlags(this.flags));
+		return new ProfilesMerger(XmlFormatter.fromFlags(this.flags), new ProfilesSorter());
 	}
 
 	getSpinnerText(): string {
