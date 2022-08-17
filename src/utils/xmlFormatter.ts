@@ -1,8 +1,8 @@
 import { Builder } from "xml2js";
 interface FormatterConfig {
-	indent: string;
-	skipFinalNewLine: boolean;
-	newLineChar: string;
+	indent?: string;
+	skipFinalNewLine?: boolean;
+	newLineChar?: string;
 }
 
 function repeat(str: string, times: number): string {
