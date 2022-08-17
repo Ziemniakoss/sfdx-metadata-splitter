@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - run: git config --global user.name 'Ziemniakoss' && git config --global user.email 'Ziemniakoss@users.noreply.github.com'
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
@@ -16,10 +15,8 @@ jobs:
       - name: Install dependencies and build
         run: npm ci && npm run build
       - name: Bump version
-        run: npm version patch
+        run: npm version --git-tag-version false patch
       - name: Publish package on NPM 📦
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_KEY }}
-      - name: Update git repo
-        run: git push --follow-tags origin HEAD
