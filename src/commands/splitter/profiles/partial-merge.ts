@@ -40,7 +40,8 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 	};
 
 	public static examples = [
-		"Create partial Admin profile with permsisions for Account SObject and all its fields\n$ sfdx splitter:profiles:partial-merge -m Profile:Admin,CustomObject:Account"
+		"Create partial Admin profile with permissions for Account SObject and all its fields\n$ sfdx splitter:profiles:partial-merge -m Profile:Admin,CustomObject:Account",
+		"Create all partial profiles with  all Apex classes support\n$ sfdx splitter:profiles:partial-merge -m Profile:*,ApexClass:*"
 	];
 
 	async run() {
@@ -49,11 +50,13 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 			metadataToInclude.profiles
 		);
 
-		return Promise.all(
+		this.ux.startSpinner("Creating partial profiles")
+		await Promise.all(
 			profilesDirs.map((profileDir) =>
 				this.createPartialProfile(metadataToInclude.metadata, profileDir)
 			)
 		);
+		this.ux.stopSpinner("may your next deploy be successful")
 	}
 
 	private async getFoldersProfiles(
@@ -183,7 +186,6 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 				const [sObjectName, fieldName] = basename(file)
 					.split(".")
 					.map((part) => part.toLowerCase());
-				console.log(sObjectName, fieldName);
 				return (
 					metadataToInclude.objectPermissions.has(sObjectName) ||
 					metadataToInclude.fieldPermissions.has(`${sObjectName}.${fieldName}`)
