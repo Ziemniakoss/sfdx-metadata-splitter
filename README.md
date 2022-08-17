@@ -48,7 +48,7 @@ You don't have to merge labels before deployment or converting metadata.
 To split labels into multiple files and remove source file, use
 
 ```
-sfdx metadata:labels:split -r
+sfdx splitter:labels:split -r
 ```
 
 To merge them back and remove source files, use:
@@ -64,13 +64,13 @@ Translations have to be merged before converting metadata or deployment.
 To split all translations and remove source file
 
 ```
-sfdx metadata:translations:split -r
+sfdx splitter:translations:split -r
 ```
 
 To merge them back and remvoe splitted files, use:
 
 ```
-sfdx metadata:translations:merge -r
+sfdx splitter:translations:merge -r
 ```
 
 ### Profiles support
@@ -80,7 +80,7 @@ Profiles have to be merged before converting metadata or deployment.
 To split profiles, use
 
 ```
-sfdx metadata:profiles:split
+sfdx splitter:profiles:split
 ```
 
 You can add flag -r to remove divided file.
@@ -88,7 +88,7 @@ You can add flag -r to remove divided file.
 To merge profile back, use
 
 ```
-sfdx metadata:profiles:merge
+sfdx splitter:profiles:merge
 ```
 
 with optional -r flag.
@@ -103,3 +103,18 @@ Tags:
 
 are not fully divided in this version of plugin (all elements with this tags will be grouped in files with tag in its name) as I don't know how to efficiently divide them.
 If you have an idea, please submit pull request or issue.
+
+#### Partial profile
+
+There is option to create partial profile from splitted files using simmilar syntax to the one used by
+
+```sh
+sfdx force:source:deploy
+```
+
+command for "m" flag.
+To create such file, use command
+
+```shell
+sfdx splitter:profile:partial-merge
+```
