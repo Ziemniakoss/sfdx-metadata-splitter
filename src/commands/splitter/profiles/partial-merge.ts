@@ -77,7 +77,7 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 			return allProfilesFolders;
 		}
 		return allProfilesFolders.filter((folder) =>
-			profileNames.has(basename(folder))
+			profileNames.has(basename(folder).toLowerCase())
 		);
 	}
 
