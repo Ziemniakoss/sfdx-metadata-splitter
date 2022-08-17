@@ -1,7 +1,7 @@
 {
 	"name": "sfdx-metadata-splitter",
 	"description": "Split Salesforce metadata files",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"author": "Ziemniakoss",
 	"bugs": "https://github.com/Ziemniakoss/sfdx-metadata-splitter/issues",
 	"dependencies": {
