@@ -13,8 +13,10 @@ export default abstract class SplittingCommand extends SfdxCommand {
 		const splitter = this.getSplitter();
 
 		this.ux.startSpinner(this.getSpinnerText());
-		const deleteAfterSplitting = this.deleteAfterSplitting()
-		await Promise.all(filesToSplit.map(file => splitter.split(file, deleteAfterSplitting)))
+		const deleteAfterSplitting = this.deleteAfterSplitting();
+		await Promise.all(
+			filesToSplit.map((file) => splitter.split(file, deleteAfterSplitting))
+		);
 		this.ux.stopSpinner(this.getDoneMessage());
 	}
 

@@ -1,7 +1,7 @@
 import { SfdxCommand } from "@salesforce/command";
 import Merger from "./mergers/Merger";
 import { getAllDirs, getDefaultFolder } from "./utils/filesUtils";
-import {  join } from "path";
+import { join } from "path";
 
 export default abstract class MergingCommand extends SfdxCommand {
 	abstract getMerger(): Merger;
@@ -11,8 +11,10 @@ export default abstract class MergingCommand extends SfdxCommand {
 		const foldersToMerge = await this.getInputDirs();
 
 		this.ux.startSpinner(this.getSpinnerText());
-		const deleteAfterSplitting = this.deleteAfterSplitting()
-		await Promise.all(foldersToMerge.map(folder => merger.join(folder, deleteAfterSplitting)))
+		const deleteAfterSplitting = this.deleteAfterSplitting();
+		await Promise.all(
+			foldersToMerge.map((folder) => merger.join(folder, deleteAfterSplitting))
+		);
 		this.ux.stopSpinner(this.getDoneMessage());
 	}
 
