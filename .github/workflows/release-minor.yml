@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies and build
         run: npm ci && npm run build
       - name: Bump version
-        run: npm version minor
+        run: npm version --git-tag-version false minor
       - name: Publish package on NPM 📦
         run: npm publish
         env:
