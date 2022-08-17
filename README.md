@@ -107,11 +107,14 @@ If you have an idea, please submit pull request or issue.
 #### Partial profile
 
 There is option to create partial profile from splitted files using simmilar syntax to the one used by
+
 ```sh
 sfdx force:source:deploy
 ```
+
 command for "m" flag.
 To create such file, use command
+
 ```shell
 sfdx splitter:profile:partial-merge
 ```

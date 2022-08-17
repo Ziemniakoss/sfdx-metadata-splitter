@@ -4,13 +4,13 @@ import { existsSync, promises } from "fs";
 import {
 	findAllFilesWithExtension,
 	getAllDirs,
-	readXmlFromFile
+	readXmlFromFile,
 } from "../../../utils/filesUtils";
 import {
 	PROFILES_EXTENSION,
 	PROFILES_ROOT_TAG,
 	SPLITTED_PROFILES_EXTENSION,
-	XML_NAMESPACE
+	XML_NAMESPACE,
 } from "../../../constants";
 import XmlFormatter from "../../../utils/xmlFormatter";
 
@@ -35,13 +35,13 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 		metadata: flags.array({
 			char: "m",
 			description: "Similar to sfdx force:source:deploy m flag",
-			required: true
-		})
+			required: true,
+		}),
 	};
 
 	public static examples = [
 		"Create partial Admin profile with permissions for Account SObject and all its fields\n$ sfdx splitter:profiles:partial-merge -m Profile:Admin,CustomObject:Account",
-		"Create all partial profiles with  all Apex classes support\n$ sfdx splitter:profiles:partial-merge -m Profile:*,ApexClass:*"
+		"Create all partial profiles with  all Apex classes support\n$ sfdx splitter:profiles:partial-merge -m Profile:*,ApexClass:*",
 	];
 
 	async run() {
@@ -50,13 +50,13 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 			metadataToInclude.profiles
 		);
 
-		this.ux.startSpinner("Creating partial profiles")
+		this.ux.startSpinner("Creating partial profiles");
 		await Promise.all(
 			profilesDirs.map((profileDir) =>
 				this.createPartialProfile(metadataToInclude.metadata, profileDir)
 			)
 		);
-		this.ux.stopSpinner("may your next deploy be successful")
+		this.ux.stopSpinner("may your next deploy be successful");
 	}
 
 	private async getFoldersProfiles(
@@ -90,7 +90,7 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 			fieldPermissions,
 			objectPermissions,
 			recordTypeVisibilities,
-			tabVisibilities
+			tabVisibilities,
 		] = await Promise.all([
 			this.getAllPermissions(metadataToInclude, profileFolder, "classAccesses"),
 			this.getAllFieldsPermissions(metadataToInclude, profileFolder),
@@ -108,19 +108,19 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 				metadataToInclude,
 				profileFolder,
 				"tabVisibilities"
-			)
+			),
 		]);
 		const profile = {
 			[PROFILES_ROOT_TAG]: {
 				$: {
-					xmlns: XML_NAMESPACE
+					xmlns: XML_NAMESPACE,
 				},
 				classAccesses,
 				fieldPermissions,
 				objectPermissions,
 				recordTypeVisibilities,
-				tabVisibilities
-			}
+				tabVisibilities,
+			},
 		};
 		const xml = new XmlFormatter({}).formatXml(profile);
 		const outputFile = join(
@@ -202,8 +202,8 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 
 	private a(): SimplifiedPackage {
 		const metadata: string[][] = this.flags.metadata.map((m) => {
-			const splitted =m.split(":");
-			return [splitted[0], splitted.splice(1).join(":")]
+			const splitted = m.split(":");
+			return [splitted[0], splitted.splice(1).join(":")];
 		});
 		const result: SimplifiedPackage = {
 			profiles: new Set(),
@@ -213,8 +213,8 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 				fieldPermissions: new Set(),
 				objectPermissions: new Set(),
 				recordTypeVisibilities: new Set(),
-				tabVisibilities: new Set()
-			}
+				tabVisibilities: new Set(),
+			},
 		};
 		for (const m of metadata) {
 			const [type, value] = m.map((part) => part.toLowerCase());
