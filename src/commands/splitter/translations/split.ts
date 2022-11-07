@@ -1,7 +1,7 @@
 import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
 import SplittingCommand from "../../../SplittingCommand";
-import { PLUGIN_NAME, TRANSLATIONS_EXTENSION } from "../../../constants";
+import { METADATA_EXTENSIONS, PLUGIN_NAME } from "../../../constants";
 import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import TranslationsSplitter from "../../../splitters/TranslationsSplitter";
 import XmlFormatter from "../../../utils/xmlFormatter";
@@ -31,7 +31,7 @@ export default class SplitTranslations extends SplittingCommand {
 	}
 
 	protected getFilesExtension(): string {
-		return TRANSLATIONS_EXTENSION;
+		return METADATA_EXTENSIONS.TRANSLATIONS;
 	}
 
 	protected getSpinnerText(): string {

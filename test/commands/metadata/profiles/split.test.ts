@@ -7,7 +7,7 @@ import {
 import { join } from "path";
 import { readdirSync } from "fs";
 import * as assert from "assert";
-import { SPLITTED_PROFILES_EXTENSION } from "../../../../src/constants";
+import { SPLIT_EXTENSIONS } from "../../../../src/constants";
 
 const PROJECT_BASE = "m_p_s";
 
@@ -44,7 +44,7 @@ function validateFieldPermissions(splittedProfileDir) {
 		join(
 			splittedProfileDir,
 			"fieldPermissions",
-			`Contact.AccountId${SPLITTED_PROFILES_EXTENSION}`
+			`Contact.AccountId${SPLIT_EXTENSIONS.PROFILES}`
 		),
 	];
 	filesShouldExist(fieldPermissionsFiles);
@@ -55,12 +55,12 @@ function validateLayoutAssignments(splittedProfileDir) {
 		join(
 			splittedProfileDir,
 			"layoutAssignments",
-			`Account${SPLITTED_PROFILES_EXTENSION}`
+			`Account${SPLIT_EXTENSIONS.PROFILES}`
 		),
 		join(
 			splittedProfileDir,
 			"layoutAssignments",
-			`Account.Special Account${SPLITTED_PROFILES_EXTENSION}`
+			`Account.Special Account${SPLIT_EXTENSIONS.PROFILES}`
 		),
 	];
 	filesShouldExist(layoutPermissionFiles);

@@ -1,7 +1,7 @@
 import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
 import SplittingCommand from "../../../SplittingCommand";
-import { LABELS_EXTENSION, PLUGIN_NAME } from "../../../constants";
+import { METADATA_EXTENSIONS, PLUGIN_NAME } from "../../../constants";
 import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import Splitter from "../../../splitters/Splitter";
 import LabelsSplitter from "../../../splitters/LabelsSplitter";
@@ -40,7 +40,7 @@ export default class SplitLabels extends SplittingCommand {
 	}
 
 	protected getFilesExtension(): string {
-		return LABELS_EXTENSION;
+		return METADATA_EXTENSIONS.LABELS;
 	}
 
 	protected getSpinnerText(): string {

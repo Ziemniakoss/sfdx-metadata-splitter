@@ -1,14 +1,28 @@
 export const XML_NAMESPACE = "http://soap.sforce.com/2006/04/metadata";
 
-export const TRANSLATIONS_EXTENSION = ".translation-meta.xml";
-export const TRANSLATIONS_ROOT_TAG = "Translations";
-export const SPLITTED_TRANSLATIONS_EXTENSION = ".translation-part.xml";
+export const ROOT_TAGS = {
+	TRANSLATIONS: "Translations",
+	PROFILES: "Profile",
+	LABELS: "CustomLabels",
+} as const;
 
-export const PROFILES_EXTENSION = ".profile-meta.xml";
-export const PROFILES_ROOT_TAG = "Profile";
-export const SPLITTED_PROFILES_EXTENSION = ".profile-part.xml";
+/**
+ * Extensions of split metadata files
+ */
+export const SPLIT_EXTENSIONS = {
+	TRANSLATIONS: ".translation-part.xml",
+	PROFILES: ".profile-part.xml",
+	PERMISSION_SETS: ".permissionset-meta.xml",
+} as const;
 
-export const LABELS_EXTENSION = ".labels-meta.xml";
-export const LABELS_ROOT_TAG = "CustomLabels";
+/**
+ * Extensions of standard metadata files
+ */
+export const METADATA_EXTENSIONS = {
+	TRANSLATIONS: ".translation-meta.xml",
+	PROFILES: ".profile-meta.xml",
+	LABELS: ".labels-meta.xml",
+	PERMISSION_SETS: ".permissionset-part.xml",
+} as const;
 
 export const PLUGIN_NAME = "sfdx-metadata-splitter";

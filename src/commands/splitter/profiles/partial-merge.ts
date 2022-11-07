@@ -7,9 +7,9 @@ import {
 	readXmlFromFile,
 } from "../../../utils/filesUtils";
 import {
-	PROFILES_EXTENSION,
-	PROFILES_ROOT_TAG,
-	SPLITTED_PROFILES_EXTENSION,
+	METADATA_EXTENSIONS,
+	ROOT_TAGS,
+	SPLIT_EXTENSIONS,
 	XML_NAMESPACE,
 } from "../../../constants";
 import XmlFormatter from "../../../utils/xmlFormatter";
@@ -111,7 +111,7 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 			),
 		]);
 		const profile = {
-			[PROFILES_ROOT_TAG]: {
+			[ROOT_TAGS.PROFILES]: {
 				$: {
 					xmlns: XML_NAMESPACE,
 				},
@@ -125,7 +125,7 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 		const xml = new XmlFormatter({}).formatXml(profile);
 		const outputFile = join(
 			dirname(profileFolder),
-			`${basename(profileFolder)}${PROFILES_EXTENSION}`
+			`${basename(profileFolder)}${METADATA_EXTENSIONS.PROFILES}`
 		);
 		return promises.writeFile(outputFile, xml);
 	}
@@ -141,7 +141,7 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 		}
 		const allFilesWithPermissions = await findAllFilesWithExtension(
 			scannedFolder,
-			SPLITTED_PROFILES_EXTENSION
+			SPLIT_EXTENSIONS.PROFILES
 		);
 		let includedFiles: string[];
 		if (metadataToInclude[permissionsType].has("*")) {
@@ -150,7 +150,7 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 			includedFiles = allFilesWithPermissions.filter((file) => {
 				const fileName = basename(file);
 				const permissionTarget = fileName
-					.substring(0, fileName.length - SPLITTED_PROFILES_EXTENSION.length)
+					.substring(0, fileName.length - SPLIT_EXTENSIONS.PROFILES.length)
 					.toLowerCase();
 				return metadataToInclude[permissionsType].has(permissionTarget);
 			});
@@ -173,7 +173,7 @@ export default class PartiallyMergeProfile extends SfdxCommand {
 		}
 		const allFieldsPermissionsFiles = await findAllFilesWithExtension(
 			scannedFolder,
-			SPLITTED_PROFILES_EXTENSION
+			SPLIT_EXTENSIONS.PROFILES
 		);
 		let includedFiles: string[];
 		if (

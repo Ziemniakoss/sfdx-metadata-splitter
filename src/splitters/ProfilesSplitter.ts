@@ -2,15 +2,11 @@ import { basename, join } from "path";
 import { existsSync, promises } from "fs";
 import Splitter from "./Splitter";
 import { readXmlFromFile, writeXmlToFile } from "../utils/filesUtils";
-import {
-	PROFILES_ROOT_TAG,
-	SPLITTED_PROFILES_EXTENSION,
-	XML_NAMESPACE,
-} from "../constants";
+import { ROOT_TAGS, SPLIT_EXTENSIONS, XML_NAMESPACE } from "../constants";
 
 export default class ProfilesSplitter extends Splitter {
 	getRootTag(): string {
-		return PROFILES_ROOT_TAG;
+		return ROOT_TAGS.PROFILES;
 	}
 
 	async split(inputFile: string, deleteSourceFiles: boolean) {
@@ -55,7 +51,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["application"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"applicationVisibilities"
 		);
 	}
@@ -65,7 +61,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["application"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"categoryGroupVisibilities"
 		);
 	}
@@ -75,7 +71,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["apexClass"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"classAccesses"
 		);
 	}
@@ -85,7 +81,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["name"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"customMetadataTypeAccesses"
 		);
 	}
@@ -95,7 +91,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["name"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"customPermissions"
 		);
 	}
@@ -105,7 +101,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["name"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"customSettingAccesses"
 		);
 	}
@@ -115,7 +111,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["externalDataSource"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"externalDataSourceAccesses"
 		);
 	}
@@ -125,7 +121,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["field"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"fieldLevelSecurities"
 		);
 	}
@@ -135,7 +131,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["field"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"fieldPermissions"
 		);
 	}
@@ -145,7 +141,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["flow"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"flowAccesses"
 		);
 	}
@@ -165,7 +161,7 @@ export default class ProfilesSplitter extends Splitter {
 			if (layoutAssignment.recordType != null) {
 				fileName += "." + layoutAssignment.recordType[0];
 			}
-			fileName += SPLITTED_PROFILES_EXTENSION;
+			fileName += SPLIT_EXTENSIONS.PROFILES;
 			const fullPath = join(outputDir, fileName);
 			await writeXmlToFile(
 				fullPath,
@@ -186,7 +182,7 @@ export default class ProfilesSplitter extends Splitter {
 		return this.writeTag(
 			profileProperties,
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"loginFlows"
 		);
 	}
@@ -195,7 +191,7 @@ export default class ProfilesSplitter extends Splitter {
 		return this.writeTag(
 			profileProperties,
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"loginHours"
 		);
 	}
@@ -204,7 +200,7 @@ export default class ProfilesSplitter extends Splitter {
 		return this.writeTag(
 			profileProperties,
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"loginIpRanges"
 		);
 	}
@@ -214,7 +210,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["object"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"objectPermissions"
 		);
 	}
@@ -224,7 +220,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["apexPage"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"pageAccesses"
 		);
 	}
@@ -233,7 +229,7 @@ export default class ProfilesSplitter extends Splitter {
 		return this.writeTag(
 			profileProperties,
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"profileActionOverrides"
 		);
 	}
@@ -243,7 +239,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["recordType"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"recordTypeVisibilities"
 		);
 	}
@@ -253,7 +249,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["tab"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"tabVisibilities"
 		);
 	}
@@ -263,7 +259,7 @@ export default class ProfilesSplitter extends Splitter {
 			profileProperties,
 			["name"],
 			outputDir,
-			SPLITTED_PROFILES_EXTENSION,
+			SPLIT_EXTENSIONS.PROFILES,
 			"userPermissions"
 		);
 	}
@@ -275,7 +271,7 @@ export default class ProfilesSplitter extends Splitter {
 	) {
 		const filepath = join(
 			outputDir,
-			`${profileName}${SPLITTED_PROFILES_EXTENSION}`
+			`${profileName}${SPLIT_EXTENSIONS.PROFILES}`
 		);
 		return this.writeTags(profileProperties, filepath, [
 			"custom",

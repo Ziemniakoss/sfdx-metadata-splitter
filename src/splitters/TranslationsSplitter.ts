@@ -1,10 +1,7 @@
 import { join, sep } from "path";
 import { existsSync, mkdirSync, promises } from "fs";
 import Splitter from "./Splitter";
-import {
-	SPLITTED_TRANSLATIONS_EXTENSION,
-	TRANSLATIONS_ROOT_TAG,
-} from "../constants";
+import { ROOT_TAGS, SPLIT_EXTENSIONS } from "../constants";
 
 export default class TranslationsSplitter extends Splitter {
 	async split(inputFile: string, deleteSourceFiles: boolean) {
@@ -47,7 +44,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["fullName"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"bots"
 		);
 	}
@@ -57,7 +54,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["name"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"customApplications"
 		);
 	}
@@ -67,7 +64,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["name"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"customLabels"
 		);
 	}
@@ -80,7 +77,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["name"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"customPageWebLinks"
 		);
 	}
@@ -90,7 +87,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["name"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"customTabs"
 		);
 	}
@@ -103,7 +100,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["fullName"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"flowDefinitions"
 		);
 	}
@@ -116,7 +113,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["name"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"globalPicklists"
 		);
 	}
@@ -126,7 +123,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["name"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"prompts"
 		);
 	}
@@ -136,7 +133,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["name"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"quickActions"
 		);
 	}
@@ -146,7 +143,7 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["name"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"reportTypes"
 		);
 	}
@@ -156,11 +153,11 @@ export default class TranslationsSplitter extends Splitter {
 			translations,
 			["name"],
 			outputDir,
-			SPLITTED_TRANSLATIONS_EXTENSION,
+			SPLIT_EXTENSIONS.TRANSLATIONS,
 			"scontrols"
 		);
 	}
 	getRootTag(): string {
-		return TRANSLATIONS_ROOT_TAG;
+		return ROOT_TAGS.TRANSLATIONS;
 	}
 }
