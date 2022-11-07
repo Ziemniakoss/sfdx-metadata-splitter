@@ -19,7 +19,7 @@ export default class SplitProfiles extends SplittingCommand {
 			description: messages.getMessage("flag_remove"),
 			char: "r",
 		}),
-		input: flags.string({
+		input: flags.array({
 			description: messages.getMessage("flag_input"),
 			char: "i",
 		}),

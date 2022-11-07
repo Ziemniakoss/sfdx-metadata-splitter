@@ -21,8 +21,8 @@ export default abstract class SplittingCommand extends SfdxCommand {
 	}
 
 	private async getFilesToSplit(): Promise<string[]> {
-		if (this.flags["input"]) {
-			return this.flags["input"].split(",").map((file) => file.trim());
+		if (this.flags.input) {
+			return this.flags.input;
 		}
 		return findAllFilesWithExtension(
 			getDefaultFolder(this.project),

@@ -18,7 +18,7 @@ export default class MergeProfiles extends MergingCommand {
 			description: messages.getMessage("flag_remove"),
 			char: "r",
 		}),
-		input: flags.string({
+		input: flags.array({
 			description: messages.getMessage("flag_input"),
 			char: "i",
 		}),

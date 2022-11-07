@@ -19,7 +19,7 @@ export default class SplitLabels extends SplittingCommand {
 			description: messages.getMessage("flag_output"),
 			char: "o",
 		}),
-		input: flags.string({
+		input: flags.array({
 			description: messages.getMessage("flag_input"),
 			char: "i",
 		}),

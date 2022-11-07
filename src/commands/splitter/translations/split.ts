@@ -15,7 +15,7 @@ export default class SplitTranslations extends SplittingCommand {
 	protected static requiresProject = true;
 
 	public static flagsConfig = {
-		input: flags.string({
+		input: flags.array({
 			description: messages.getMessage("flag_input"),
 			char: "i",
 		}),
