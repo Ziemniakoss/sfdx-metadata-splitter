@@ -46,7 +46,10 @@ export default class ProfilesSplitter extends Splitter {
 		return splittingPromise;
 	}
 
-	async writeApplicationVisibilities(profileProperties, outputDir: string) {
+	private async writeApplicationVisibilities(
+		profileProperties,
+		outputDir: string
+	) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["application"],
@@ -56,7 +59,10 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeCategoryGroupVisibilities(profileProperties, outputDir: string) {
+	private async writeCategoryGroupVisibilities(
+		profileProperties,
+		outputDir: string
+	) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["application"],
@@ -66,7 +72,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeClassAccesses(profileProperties, outputDir: string) {
+	private async writeClassAccesses(profileProperties, outputDir: string) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["apexClass"],
@@ -76,7 +82,10 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeCustomMetadataTypeAccesses(profileProperties, outputDir: string) {
+	private async writeCustomMetadataTypeAccesses(
+		profileProperties,
+		outputDir: string
+	) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["name"],
@@ -86,7 +95,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeCustomPermissions(profileProperties, outputDir: string) {
+	private async writeCustomPermissions(profileProperties, outputDir: string) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["name"],
@@ -96,7 +105,10 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeCustomSettingAccesses(profileProperties, outputDir: string) {
+	private async writeCustomSettingAccesses(
+		profileProperties,
+		outputDir: string
+	) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["name"],
@@ -106,7 +118,10 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeExternalDataSourceAccesses(profileProperties, outputDir: string) {
+	private async writeExternalDataSourceAccesses(
+		profileProperties,
+		outputDir: string
+	) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["externalDataSource"],
@@ -116,7 +131,10 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeFieldLevelSecurities(profileProperties, outputDir: string) {
+	private async writeFieldLevelSecurities(
+		profileProperties,
+		outputDir: string
+	) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["field"],
@@ -126,7 +144,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeFieldPermissions(profileProperties, outputDir: string) {
+	private async writeFieldPermissions(profileProperties, outputDir: string) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["field"],
@@ -136,7 +154,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeFlowAccesses(profileProperties, outputDir: string) {
+	private async writeFlowAccesses(profileProperties, outputDir: string) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["flow"],
@@ -146,7 +164,10 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeLayoutAssignments(profileProperties, baseOutputDir: string) {
+	private async writeLayoutAssignments(
+		profileProperties,
+		baseOutputDir: string
+	) {
 		const layoutAssignments = profileProperties.layoutAssignments;
 		if (layoutAssignments == null) {
 			return;
@@ -178,7 +199,7 @@ export default class ProfilesSplitter extends Splitter {
 		}
 	}
 
-	async writeLoginFlows(profileProperties, outputDir: string) {
+	private async writeLoginFlows(profileProperties, outputDir: string) {
 		return this.writeTag(
 			profileProperties,
 			outputDir,
@@ -187,7 +208,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeLoginHours(profileProperties, outputDir: string) {
+	private async writeLoginHours(profileProperties, outputDir: string) {
 		return this.writeTag(
 			profileProperties,
 			outputDir,
@@ -196,7 +217,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeLoginIpRanges(profileProperties, outputDir: string) {
+	private async writeLoginIpRanges(profileProperties, outputDir: string) {
 		return this.writeTag(
 			profileProperties,
 			outputDir,
@@ -205,7 +226,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeObjectPermissions(profileProperties, outputDir: string) {
+	private async writeObjectPermissions(profileProperties, outputDir: string) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["object"],
@@ -215,7 +236,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writePageAccesses(profileProperties, outputDir: string) {
+	private async writePageAccesses(profileProperties, outputDir: string) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["apexPage"],
@@ -225,7 +246,10 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeProfileActionOverrides(profileProperties, outputDir: string) {
+	private async writeProfileActionOverrides(
+		profileProperties,
+		outputDir: string
+	) {
 		return this.writeTag(
 			profileProperties,
 			outputDir,
@@ -234,7 +258,10 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeRecordTypeVisibilities(profileProperties, outputDir: string) {
+	private async writeRecordTypeVisibilities(
+		profileProperties,
+		outputDir: string
+	) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["recordType"],
@@ -244,7 +271,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeTabVisibilities(profileProperties, outputDir: string) {
+	private async writeTabVisibilities(profileProperties, outputDir: string) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["tab"],
@@ -254,7 +281,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeUserPermissions(profileProperties, outputDir: string) {
+	private async writeUserPermissions(profileProperties, outputDir: string) {
 		return this.writeSplittedToFiles(
 			profileProperties,
 			["name"],
@@ -264,7 +291,7 @@ export default class ProfilesSplitter extends Splitter {
 		);
 	}
 
-	async writeProfileProperties(
+	private async writeProfileProperties(
 		profileProperties,
 		outputDir: string,
 		profileName: string

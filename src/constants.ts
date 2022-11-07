@@ -4,6 +4,7 @@ export const ROOT_TAGS = {
 	TRANSLATIONS: "Translations",
 	PROFILES: "Profile",
 	LABELS: "CustomLabels",
+	PERMISSION_SETS: "PermissionSet",
 } as const;
 
 /**
