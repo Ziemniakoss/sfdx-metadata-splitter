@@ -11,7 +11,7 @@ import { SPLIT_EXTENSIONS } from "../../../../src/constants";
 
 const PROJECT_BASE = "m_p_s";
 
-describe("metadata:profiles:split", () => {
+describe("splitter:profiles:split", () => {
 	createProject(PROJECT_BASE);
 	const fileToSplit = join(
 		ROOT_TEST_FILES_DIR,
@@ -30,7 +30,7 @@ describe("metadata:profiles:split", () => {
 		"TestProfile"
 	);
 	test
-		.command(["metadata:profiles:split", "-i", fileToSplit, "-r"])
+		.command(["splitter:profiles:split", "-i", fileToSplit, "-r"])
 		.it("Should split profile", () => {
 			assert.equal(readdirSync(outputPath).length, 10);
 			validateFieldPermissions(outputPath);

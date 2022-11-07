@@ -8,7 +8,7 @@ import { join } from "path";
 
 const PROJECT_BASE = "m_p_m";
 
-describe("metadata:profiles:merge", () => {
+describe("splitter:profiles:merge", () => {
 	createSplittedProject(PROJECT_BASE);
 	const outputFile = join(
 		ROOT_TEST_FILES_DIR,
@@ -28,7 +28,7 @@ describe("metadata:profiles:merge", () => {
 	);
 
 	test
-		.command(["metadata:profiles:merge", "-i", profileDir, "-r"])
+		.command(["splitter:profiles:merge", "-i", profileDir, "-r"])
 		.it("Should merge profile", () => {
 			filesShouldExist([outputFile]);
 		});

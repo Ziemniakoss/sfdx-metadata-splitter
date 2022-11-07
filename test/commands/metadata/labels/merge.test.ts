@@ -5,7 +5,7 @@ import { existsSync, readdirSync } from "fs";
 import * as assert from "assert";
 import { METADATA_EXTENSIONS } from "../../../../lib/constants";
 
-describe("metadata:labels:merge", () => {
+describe("splitter:labels:merge", () => {
 	createSplittedProject("m_l_m");
 
 	const outputDir = join(
@@ -23,7 +23,7 @@ describe("metadata:labels:merge", () => {
 		"labels"
 	);
 	test
-		.command(["metadata:labels:merge", "-i", inputDir, "-r"])
+		.command(["splitter:labels:merge", "-i", inputDir, "-r"])
 		.it("Should merge labels", () => {
 			assert.equal(
 				readdirSync(outputDir).length,

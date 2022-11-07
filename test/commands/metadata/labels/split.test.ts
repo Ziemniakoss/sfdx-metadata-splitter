@@ -4,7 +4,7 @@ import { join } from "path";
 import { readdirSync } from "fs";
 import * as assert from "assert";
 
-describe("metadata:labels:split", () => {
+describe("splitter:labels:split", () => {
 	createProject("m_l_s");
 
 	const outputPath = join(
@@ -23,7 +23,7 @@ describe("metadata:labels:split", () => {
 		"CustomLabels.labels-meta.xml"
 	);
 	test
-		.command(["metadata:labels:split", "-i", inputDir, "-r"])
+		.command(["splitter:labels:split", "-i", inputDir, "-r"])
 		.it("Should create 2 files", () => {
 			assert.equal(readdirSync(outputPath).length, 2);
 		});
