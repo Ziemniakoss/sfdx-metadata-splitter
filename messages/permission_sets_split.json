@@ -1,0 +1,7 @@
+{
+	"description": "Split permission sets",
+	"flag_remove": "Remove original permission sets files",
+	"flag_input": "Permission sets to split",
+	"spinner_done": "split",
+	"spinner": "Splitting permissions sets"
+}

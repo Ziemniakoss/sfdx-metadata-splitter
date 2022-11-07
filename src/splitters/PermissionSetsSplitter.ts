@@ -1,6 +1,6 @@
 import Splitter from "./Splitter";
-import { ROOT_TAGS, SPLIT_EXTENSIONS } from "../constants";
-import { basename, join } from "path";
+import { METADATA_EXTENSIONS, ROOT_TAGS, SPLIT_EXTENSIONS } from "../constants";
+import { basename, dirname, join } from "path";
 import { existsSync, promises } from "fs";
 import { readXmlFromFile } from "../utils/filesUtils";
 
@@ -11,11 +11,17 @@ export default class PermissionSetsSplitter extends Splitter {
 
 	async split(inputFile: string, deleteSourceFiles: boolean): Promise<any> {
 		const permissionSetName = this.getPermissionSetName(inputFile);
-		const baseOutputDir = basename(inputFile);
+		if (permissionSetName != "TestPermSet") {
+			throw new Error(permissionSetName);
+		}
+		const baseOutputDir = dirname(inputFile);
 		if (!existsSync(baseOutputDir)) {
 			await promises.mkdir(baseOutputDir);
 		}
 		const outputDir = join(baseOutputDir, permissionSetName);
+		if (!existsSync(outputDir)) {
+			await promises.mkdir(outputDir);
+		}
 		const permissionSetProperties =
 			(await readXmlFromFile(inputFile))?.[this.getRootTag()] ?? {};
 		const splittingPromise = Promise.all([
@@ -40,7 +46,7 @@ export default class PermissionSetsSplitter extends Splitter {
 		]);
 
 		if (deleteSourceFiles) {
-			return Promise.all([splittingPromise, promises.rm(inputFile)]);
+			return splittingPromise.then(() => promises.rm(inputFile));
 		}
 		return splittingPromise;
 	}
@@ -222,14 +228,6 @@ export default class PermissionSetsSplitter extends Splitter {
 
 	private getPermissionSetName(inputFile: string) {
 		const fileName = basename(inputFile);
-		let dotsCount = 0;
-		for (let i = fileName.length - 1; i > 0; i--) {
-			if (fileName[i] === ".") {
-				dotsCount++;
-			}
-			if (dotsCount == 2) {
-				return fileName.substring(0, i);
-			}
-		}
+		return fileName.replace(METADATA_EXTENSIONS.PERMISSION_SETS, "");
 	}
 }

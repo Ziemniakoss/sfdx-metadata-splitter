@@ -13,7 +13,7 @@ export const ROOT_TAGS = {
 export const SPLIT_EXTENSIONS = {
 	TRANSLATIONS: ".translation-part.xml",
 	PROFILES: ".profile-part.xml",
-	PERMISSION_SETS: ".permissionset-meta.xml",
+	PERMISSION_SETS: ".permissionset-part.xml",
 } as const;
 
 /**
@@ -23,7 +23,7 @@ export const METADATA_EXTENSIONS = {
 	TRANSLATIONS: ".translation-meta.xml",
 	PROFILES: ".profile-meta.xml",
 	LABELS: ".labels-meta.xml",
-	PERMISSION_SETS: ".permissionset-part.xml",
+	PERMISSION_SETS: ".permissionset-meta.xml",
 } as const;
 
 export const PLUGIN_NAME = "sfdx-metadata-splitter";
