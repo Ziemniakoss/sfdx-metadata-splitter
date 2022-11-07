@@ -13,11 +13,11 @@ export default class SplitPermissionSet extends SplittingCommand {
 	protected static requiresProject = true;
 	public static flagsConfig = {
 		remove: flags.boolean({
-			description: messages.getMessage("flag_remove"),
+			description: messages.getMessage("flags.remove"),
 			char: "r",
 		}),
-		input: flags.string({
-			description: messages.getMessage("flag_input"),
+		input: flags.array({
+			description: messages.getMessage("flags.input"),
 			char: "i",
 		}),
 		...FORMATTING_FLAGS,

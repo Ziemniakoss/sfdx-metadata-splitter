@@ -1,0 +1,23 @@
+{
+	"flag": {
+		"remove": "Remove split permission sets",
+		"input": "Permission name folders to split"
+	},
+	"spinner": "Merging permission sets",
+	"spinner_done": "done",
+	"description": "Merge permission sets",
+	"examples": {
+		"mergeAll": [
+			"Merge all permission sets",
+			"    <%= config.bin %> <%= command.id %> "
+		],
+		"mergeAllAndRemoveSource": [
+			"Merge all permission sets and then remove source files",
+			"    <%= config.bin %> <%= command.id %> -r"
+		],
+		"mergeOnlyOneProfile": [
+			"Merge permission set in folder",
+			"    <%= config.bin %> <%= command.id %> -i path/spit/profile/folder"
+		]
+	}
+}
