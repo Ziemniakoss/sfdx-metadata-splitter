@@ -55,18 +55,18 @@
 			"metadata:translations": {
 				"description": "Manage translations"
 			},
-		  "splitter": {
-			"description": "split metadata"
-		  },
-		  "splitter:labels": {
-			"description": "manage split labels"
-		  },
-		  "splitter:profiles": {
-			"description": "manage split profiles"
-		  },
-		  "splitter:translations": {
-			"description": "manage split translations"
-		  }
+			"splitter": {
+				"description": "split metadata"
+			},
+			"splitter:labels": {
+				"description": "manage split labels"
+			},
+			"splitter:profiles": {
+				"description": "manage split profiles"
+			},
+			"splitter:translations": {
+				"description": "manage split translations"
+			}
 		},
 		"devPlugins": [
 			"@oclif/plugin-help"
@@ -76,8 +76,8 @@
 	"scripts": {
 		"build": "tsc -p .",
 		"postpack": "rm -f oclif.manifest.json",
-	  "pretest": "npm run build",
-	  "test": "nyc --extension .ts --require ts-node/register mocha --forbid-only \"test/**/*.test.ts\" --timeout 10000",
+		"pretest": "npm run build",
+		"test": "nyc --extension .ts --require ts-node/register mocha --forbid-only \"test/**/*.test.ts\" --timeout 10000",
 		"prepack": "rm -rf lib && tsc -p . && oclif-dev manifest && oclif-dev readme",
 		"version": "oclif-dev readme && git add README.md"
 	}
