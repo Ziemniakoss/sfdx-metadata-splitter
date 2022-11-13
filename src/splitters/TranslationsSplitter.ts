@@ -2,6 +2,7 @@ import { join, sep } from "path";
 import { existsSync, mkdirSync, promises } from "fs";
 import Splitter from "./Splitter";
 import { ROOT_TAGS, SPLIT_EXTENSIONS } from "../constants";
+import { readXmlFromFile } from "../utils/filesUtils";
 
 export default class TranslationsSplitter extends Splitter {
 	async split(inputFile: string, deleteSourceFiles: boolean) {
@@ -11,14 +12,13 @@ export default class TranslationsSplitter extends Splitter {
 			splittedPathToInputFile[splittedPathToInputFile.length - 1];
 		const splittedFileName = fileName.split(".");
 		if (splittedFileName.length != 3) {
-			throw new Error("unsuported trnaslation name"); //TODO better message
+			throw new Error("unsupported translation name"); //TODO better message
 		}
 		const outputDir = join(baseOutputDir, splittedFileName[0]);
 		if (!existsSync(outputDir)) {
 			mkdirSync(outputDir);
 		}
 
-		//@ts-ignore
 		const translations = (await readXmlFromFile(inputFile)).Translations ?? {};
 		const splittingPromise = Promise.all([
 			this.writeBotsTranslations(translations, outputDir),
