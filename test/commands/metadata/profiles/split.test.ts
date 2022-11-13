@@ -7,11 +7,11 @@ import {
 import { join } from "path";
 import { readdirSync } from "fs";
 import * as assert from "assert";
-import { SPLITTED_PROFILES_EXTENSION } from "../../../../src/constants";
+import { SPLIT_EXTENSIONS } from "../../../../src/constants";
 
 const PROJECT_BASE = "m_p_s";
 
-describe("metadata:profiles:split", () => {
+describe("splitter:profiles:split", () => {
 	createProject(PROJECT_BASE);
 	const fileToSplit = join(
 		ROOT_TEST_FILES_DIR,
@@ -30,7 +30,7 @@ describe("metadata:profiles:split", () => {
 		"TestProfile"
 	);
 	test
-		.command(["metadata:profiles:split", "-i", fileToSplit, "-r"])
+		.command(["splitter:profiles:split", "-i", fileToSplit, "-r"])
 		.it("Should split profile", () => {
 			assert.equal(readdirSync(outputPath).length, 10);
 			validateFieldPermissions(outputPath);
@@ -44,7 +44,7 @@ function validateFieldPermissions(splittedProfileDir) {
 		join(
 			splittedProfileDir,
 			"fieldPermissions",
-			`Contact.AccountId${SPLITTED_PROFILES_EXTENSION}`
+			`Contact.AccountId${SPLIT_EXTENSIONS.PROFILES}`
 		),
 	];
 	filesShouldExist(fieldPermissionsFiles);
@@ -55,12 +55,12 @@ function validateLayoutAssignments(splittedProfileDir) {
 		join(
 			splittedProfileDir,
 			"layoutAssignments",
-			`Account${SPLITTED_PROFILES_EXTENSION}`
+			`Account${SPLIT_EXTENSIONS.PROFILES}`
 		),
 		join(
 			splittedProfileDir,
 			"layoutAssignments",
-			`Account.Special Account${SPLITTED_PROFILES_EXTENSION}`
+			`Account.Special Account${SPLIT_EXTENSIONS.PROFILES}`
 		),
 	];
 	filesShouldExist(layoutPermissionFiles);

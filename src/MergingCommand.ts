@@ -1,6 +1,6 @@
 import { SfdxCommand } from "@salesforce/command";
 import Merger from "./mergers/Merger";
-import { getAllDirs, getDefaultFolder } from "./utils/filesUtils";
+import { getAllDirs } from "./utils/filesUtils";
 import { join } from "path";
 
 export default abstract class MergingCommand extends SfdxCommand {
@@ -34,15 +34,16 @@ export default abstract class MergingCommand extends SfdxCommand {
 
 	protected async getInputDirs(): Promise<string[]> {
 		if (this.flags.input != null) {
-			return this.flags.input.split(",").map((dir) => dir.trim());
+			return this.flags.input;
 		}
-		const defaultPath = getDefaultFolder(this.project);
-		const translationsFolder = join(
-			defaultPath,
-			"main",
-			"default",
-			this.getFolderName()
+		const folderSearchingPromises = this.project
+			.getPackageDirectories()
+			.map((packageDir) =>
+				join(packageDir.path, "main", "default", this.getFolderName())
+			)
+			.map((folder) => getAllDirs(folder));
+		return Promise.all(folderSearchingPromises).then((folders) =>
+			folders.flat()
 		);
-		return getAllDirs(translationsFolder);
 	}
 }

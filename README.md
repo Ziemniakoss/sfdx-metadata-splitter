@@ -1,120 +1,74 @@
 # Split metadata files into separate files
 
 [![npm version](https://img.shields.io/npm/v/sfdx-metadata-splitter)](https://www.npmjs.com/package/sfdx-metadata-splitter)
-[![labels sre supporters](https://img.shields.io/badge/labels-supported-green)](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customlabels.htm#!)
-[![profiles are supported](https://img.shields.io/badge/profiles-supported-green)](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profile.htm)
-[![translations are supported](https://img.shields.io/badge/translations-supported-green)](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_translations.htm)
-[![permission sets support is in progress](https://img.shields.io/badge/permission%20sets-in%20progress-blue)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-Unofficial plugin for splitting metadata files into smaller ones.
+Unofficial plugin for splitting metadata files into smaller ones with only one configuration (label, permission to entity and so on) per file.
+Thanks to that:
+
+- git conflicts in metadata files are almost non existent
+- git diffs are clearer
+- IDEs don't have to load 1gb file to display profile configuration
+
+Example folder with configuration after splitting metadata files can be seen on picture bellow.
+
+![Image showing folder structure after splitting metadata](./docs/images/exampleFolder.png)
 
 ## Supported metadata types
 
-- Custom Labels
-- Translations
-- Profiles
+- [Custom Labels](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customlabels.htm#!)
+- [Profiles](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profile.htm)
+- [Translations](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_translations.htm)
+- [Permission Sets](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionset.htm)
+
+### Custom Labels
+
+After splitting, each label will be written to separate file, like this:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+	<labels>
+		<fullName>autoGeneated</fullName>
+		<language>en_US</language>
+		<protected>false</protected>
+		<shortDescription>Auto Quote</shortDescription>
+		<value>This is a auto label.</value>
+	</labels>
+</CustomLabels>
+```
+
+Custom labels are the only metadata type supported by this plugin that can be deployed in split format.
+
+### Other types
+
+Translations, profiles and permission sets will be split into files with just one permission or translation.
+Generated files will be grouped by xml tag name, for example all apex class accesses for given profile will be placed in "classAccesses" sub folder.
+
+![image showing profile folder structure after splitting](./docs/images/splitProfile.png)
 
 ## How to use
 
-Each command will print help to console if you add
+All commands included in this plugin are in "splitter" namespace.
+To see all commands available, type
 
-```
---help
+```shell
+sfdx splitter --help
 ```
 
-flag to command invocation.
+Every command in this plugin has help page available by adding "--help" flag to command invocation.
 
 ### Installation
 
-```
+```shell
 sfdx plugins:install sfdx-metadata-splitter
 ```
 
-### Formatting
-
-You can change how output is formatted by using flags:
-
-- indent-size
-- indent-style
-- new-line-char
-- skip-final-new-line
-
-By default, this plugin uses 4 spaces as indent and \n as new line character.
-
-### Custom Labels support
-
-You don't have to merge labels before deployment or converting metadata.
-
-To split labels into multiple files and remove source file, use
-
-```
-sfdx splitter:labels:split -r
-```
-
-To merge them back and remove source files, use:
-
-```
-sfdx metadata:labels:merge -r
-```
-
-### Translations support
-
-Translations have to be merged before converting metadata or deployment.
-
-To split all translations and remove source file
-
-```
-sfdx splitter:translations:split -r
-```
-
-To merge them back and remvoe splitted files, use:
-
-```
-sfdx splitter:translations:merge -r
-```
-
-### Profiles support
-
-Profiles have to be merged before converting metadata or deployment.
-
-To split profiles, use
-
-```
-sfdx splitter:profiles:split
-```
-
-You can add flag -r to remove divided file.
-
-To merge profile back, use
-
-```
-sfdx splitter:profiles:merge
-```
-
-with optional -r flag.
-
-#### Warning!!
-
-Tags:
-
-- loginFlows
-- loginIpRanges
-- profileActionOverrides
-
-are not fully divided in this version of plugin (all elements with this tags will be grouped in files with tag in its name) as I don't know how to efficiently divide them.
-If you have an idea, please submit pull request or issue.
-
-#### Partial profile
-
-There is option to create partial profile from splitted files using simmilar syntax to the one used by
-
-```sh
-sfdx force:source:deploy
-```
-
-command for "m" flag.
-To create such file, use command
+In automations systems, I highly recomend locking version of plugin by using
 
 ```shell
-sfdx splitter:profile:partial-merge
+sfdx plugins:install sfdx-metadata-splitter@your.version.number
 ```
+
+## Contributing
+
+Contributions, both issues and pull requests, are welcome.

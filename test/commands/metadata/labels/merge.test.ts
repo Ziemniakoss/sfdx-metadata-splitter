@@ -3,9 +3,9 @@ import { createSplittedProject, ROOT_TEST_FILES_DIR } from "../../../testUtils";
 import { join } from "path";
 import { existsSync, readdirSync } from "fs";
 import * as assert from "assert";
-import { LABELS_EXTENSION } from "../../../../src/constants";
+import { METADATA_EXTENSIONS } from "../../../../lib/constants";
 
-describe("metadata:labels:merge", () => {
+describe("splitter:labels:merge", () => {
 	createSplittedProject("m_l_m");
 
 	const outputDir = join(
@@ -23,14 +23,17 @@ describe("metadata:labels:merge", () => {
 		"labels"
 	);
 	test
-		.command(["metadata:labels:merge", "-i", inputDir, "-r"])
+		.command(["splitter:labels:merge", "-i", inputDir, "-r"])
 		.it("Should merge labels", () => {
 			assert.equal(
 				readdirSync(outputDir).length,
 				1,
 				"There should be only one file after merging"
 			);
-			const fullPath = join(outputDir, `CustomLabels${LABELS_EXTENSION}`);
+			const fullPath = join(
+				outputDir,
+				`CustomLabels${METADATA_EXTENSIONS.LABELS}`
+			);
 			assert.equal(existsSync(fullPath), true, "Merged file should exist");
 		});
 });

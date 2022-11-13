@@ -1,7 +1,7 @@
 import { join } from "path";
 import { rmSync } from "fs";
 import Merger from "./Merger";
-import { LABELS_EXTENSION, LABELS_ROOT_TAG, XML_NAMESPACE } from "../constants";
+import { METADATA_EXTENSIONS, ROOT_TAGS, XML_NAMESPACE } from "../constants";
 import {
 	findAllFilesWithExtension,
 	readXmlFromFile,
@@ -10,15 +10,15 @@ import {
 
 export default class LabelsMerger extends Merger {
 	getOutputFile(inputDir: string): string {
-		return join(inputDir, `CustomLabels${LABELS_EXTENSION}`);
+		return join(inputDir, `CustomLabels${METADATA_EXTENSIONS.LABELS}`);
 	}
 
 	getRootTag(): string {
-		return LABELS_ROOT_TAG;
+		return ROOT_TAGS.LABELS;
 	}
 
 	getSplittedExtension(): string {
-		return LABELS_EXTENSION;
+		return METADATA_EXTENSIONS.LABELS;
 	}
 
 	public async join(inputDir: string, removeSource: boolean) {

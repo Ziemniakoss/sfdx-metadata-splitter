@@ -4,46 +4,46 @@ import MergingCommand from "../../../MergingCommand";
 import { PLUGIN_NAME } from "../../../constants";
 import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import Merger from "../../../mergers/Merger";
-import ProfilesMerger from "../../../mergers/ProfilesMerger";
 import XmlFormatter from "../../../utils/xmlFormatter";
+import PermissionSetsMerger from "../../../mergers/PermissionSetsMerger";
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.loadMessages(PLUGIN_NAME, "profiles_merge");
+const messages = Messages.loadMessages(PLUGIN_NAME, "permission_sets_merge");
 
-export default class MergeProfiles extends MergingCommand {
+export default class MergePermissionSets extends MergingCommand {
 	public static description = messages.getMessage("description");
 	protected static requiresProject = true;
 	public static flagsConfig = {
 		remove: flags.boolean({
-			description: messages.getMessage("flag_remove"),
+			description: messages.getMessage("flag.remove"),
 			char: "r",
 		}),
 		input: flags.array({
-			description: messages.getMessage("flag_input"),
+			description: messages.getMessage("flag.input"),
 			char: "i",
 		}),
 		...FORMATTING_FLAGS,
 	};
 
 	public static examples = [
-		messages.getMessage("example_mergeAll"),
-		messages.getMessage("example_mergeAllAndRemoveSource"),
-		messages.getMessage("example_mergeOnlyOneProfile"),
+		messages.getMessage("examples.mergeAll"),
+		messages.getMessage("examples.mergeAllAndRemoveSource"),
+		messages.getMessage("examples.mergeOnlyOneProfile"),
 	];
 
 	getDoneMessage(): string {
-		return messages.getMessage("done");
+		return messages.getMessage("spinner_done");
 	}
 
 	getFolderName(): string {
-		return "profiles";
+		return "permissionsets";
 	}
 
 	getMerger(): Merger {
-		return new ProfilesMerger(XmlFormatter.fromFlags(this.flags));
+		return new PermissionSetsMerger(XmlFormatter.fromFlags(this.flags));
 	}
 
 	getSpinnerText(): string {
-		return messages.getMessage("spinnerText");
+		return messages.getMessage("spinner");
 	}
 }

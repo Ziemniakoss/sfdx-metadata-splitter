@@ -43,9 +43,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v2
       - name: instal dependencies
-        run: npm ci
-      - name: Run tests
-        run: npm test
+        run: npm cit
   run-tests-on-mac:
     runs-on: macos-latest
     name: Tests | MacOS
@@ -58,9 +56,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v2
       - name: instal dependencies
-        run: npm ci
-      - name: Run tests
-        run: npm test
+        run: npm cit
   run-tests-on-windows:
     runs-on: windows-latest
     name: Tests | windows
@@ -73,6 +69,6 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v2
       - name: instal dependencies
-        run: npm ci
+        run: npm cit
       - name: Run tests
         run: npm test

@@ -2,7 +2,7 @@ import { flags } from "@salesforce/command";
 import { Messages } from "@salesforce/core";
 
 import SplittingCommand from "../../../SplittingCommand";
-import { PLUGIN_NAME, PROFILES_EXTENSION } from "../../../constants";
+import { METADATA_EXTENSIONS, PLUGIN_NAME } from "../../../constants";
 import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 import Splitter from "../../../splitters/Splitter";
 import ProfilesSplitter from "../../../splitters/ProfilesSplitter";
@@ -19,7 +19,7 @@ export default class SplitProfiles extends SplittingCommand {
 			description: messages.getMessage("flag_remove"),
 			char: "r",
 		}),
-		input: flags.string({
+		input: flags.array({
 			description: messages.getMessage("flag_input"),
 			char: "i",
 		}),
@@ -37,7 +37,7 @@ export default class SplitProfiles extends SplittingCommand {
 	}
 
 	protected getFilesExtension(): string {
-		return PROFILES_EXTENSION;
+		return METADATA_EXTENSIONS.PROFILES;
 	}
 
 	protected getSpinnerText(): string {

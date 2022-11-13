@@ -5,20 +5,19 @@
 	"author": "Ziemniakoss",
 	"bugs": "https://github.com/Ziemniakoss/sfdx-metadata-splitter/issues",
 	"dependencies": {
-		"@salesforce/command": "^5.2.4",
-		"tslib": "^2.4.0",
+		"@salesforce/command": "^5.2.24",
 		"xml2js": "^0.4.23"
 	},
 	"devDependencies": {
-		"@oclif/plugin-help": "^5.1.12",
-		"@oclif/test": "^2.1.1",
-		"@salesforce/dev-scripts": "^3.0.0",
-		"@salesforce/ts-sinon": "^1.3.21",
-		"mocha": "^10.0.0",
+		"@oclif/plugin-help": "^5.1.19",
+		"@oclif/test": "^2.2.10",
+		"@salesforce/dev-scripts": "^3.1.0",
+		"@salesforce/ts-sinon": "^1.4.2",
+		"mocha": "^10.1.0",
 		"nyc": "^15.1.0",
 		"prettier": "^2.7.1",
 		"ts-node": "^10.9.1",
-		"typescript": "^4.7.4"
+		"typescript": "^4.8.4"
 	},
 	"engines": {
 		"node": ">=12.0.0"
@@ -44,17 +43,20 @@
 		"commands": "./lib/commands",
 		"bin": "sfdx",
 		"topics": {
-			"metadata": {
-				"description": "Manage metadata"
+			"splitter": {
+				"description": "manage split metadata files"
 			},
-			"metadata:profiles": {
-				"description": "Manage profiles"
+			"splitter:labels": {
+				"description": "manage split labels"
 			},
-			"metadata:labels": {
-				"description": "Manage labels"
+			"splitter:profiles": {
+				"description": "manage split profiles"
 			},
-			"metadata:translations": {
-				"description": "Manage translations"
+			"splitter:translations": {
+				"description": "manage split translations"
+			},
+			"splitter:permission-sets": {
+				"description": "manage split permission sets"
 			}
 		},
 		"devPlugins": [
@@ -65,6 +67,7 @@
 	"scripts": {
 		"build": "tsc -p .",
 		"postpack": "rm -f oclif.manifest.json",
+		"pretest": "npm run build",
 		"test": "nyc --extension .ts --require ts-node/register mocha --forbid-only \"test/**/*.test.ts\" --timeout 10000",
 		"prepack": "rm -rf lib && tsc -p . && oclif-dev manifest && oclif-dev readme",
 		"version": "oclif-dev readme && git add README.md"
