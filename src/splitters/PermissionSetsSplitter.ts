@@ -11,9 +11,6 @@ export default class PermissionSetsSplitter extends Splitter {
 
 	async split(inputFile: string, deleteSourceFiles: boolean): Promise<any> {
 		const permissionSetName = this.getPermissionSetName(inputFile);
-		if (permissionSetName != "TestPermSet") {
-			throw new Error(permissionSetName);
-		}
 		const baseOutputDir = dirname(inputFile);
 		if (!existsSync(baseOutputDir)) {
 			await promises.mkdir(baseOutputDir);
