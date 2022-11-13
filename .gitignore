@@ -11,3 +11,4 @@ sfdx-project.json
 /.sfdx/
 /test/commands/hello/org.test.template.ts
 /test-project/
+/oclif.manifest.json
