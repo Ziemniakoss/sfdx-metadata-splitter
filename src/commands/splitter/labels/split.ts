@@ -25,15 +25,25 @@ export default class SplitLabels extends SplittingCommand {
 		}),
 		"remove-input-file": flags.boolean({
 			description: messages.getMessage("flag_remove"),
+			deprecated: {
+				message: "Labels splitting command command since 4.0.0 will remove source files by default",
+				version: "4.0.0",
+			},
+			default: true,
 			char: "r",
+		}),
+		"keep-original": flags.boolean({
+			description:messages.getMessage("flag_keep_original"),
+			char:"k",
+
 		}),
 		...FORMATTING_FLAGS,
 	};
 
-	public async run() {
-		this.ux.warn(messages.getMessage("deprecation_notice"));
-		return super.run();
-	}
+	public static examples = [messages.getMessage("example_standard"), messages.getMessage("example_keep_source_files"),
+
+		messages.getMessage("example_custom_path")
+	]
 
 	protected getDoneMessage(): string {
 		return messages.getMessage("done");
@@ -52,6 +62,7 @@ export default class SplitLabels extends SplittingCommand {
 	}
 
 	protected deleteAfterSplitting(): boolean {
+		return !this.flags["keep-original"]
 		return this.flags["remove-input-file"];
 	}
 }

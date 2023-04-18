@@ -3,12 +3,6 @@
 [![npm version](https://img.shields.io/npm/v/sfdx-metadata-splitter)](https://www.npmjs.com/package/sfdx-metadata-splitter)
 
 Unofficial plugin for splitting metadata files into smaller ones with only one configuration (label, permission to entity and so on) per file.
-Thanks to that:
-
-- git conflicts in metadata files are almost non existent
-- git diffs are clearer
-- IDEs don't have to load 1gb file to display profile configuration
-
 Example folder with configuration after splitting metadata files can be seen on picture bellow.
 
 ![Image showing folder structure after splitting metadata](./docs/images/exampleFolder.png)
@@ -22,18 +16,24 @@ Example folder with configuration after splitting metadata files can be seen on 
 
 ### Custom Labels
 
+To split labels into separate files, use
+
+```sh
+sfdx splitter:labels:split
+```
+
 After splitting, each label will be written to separate file, like this:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
-	<labels>
-		<fullName>autoGeneated</fullName>
-		<language>en_US</language>
-		<protected>false</protected>
-		<shortDescription>Auto Quote</shortDescription>
-		<value>This is a auto label.</value>
-	</labels>
+    <labels>
+        <fullName>autoGeneated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Auto Quote</shortDescription>
+        <value>This is a auto label.</value>
+    </labels>
 </CustomLabels>
 ```
 

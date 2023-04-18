@@ -2,12 +2,35 @@
 	"action_createCustomLabelsFile": "Create labels file in default location (defaultProjectPath/main/default/labels/CustomLabels.labels-meta.xml)",
 	"action_fetchLabels": "Fetch custom labels",
 	"action_specifyInput": "Specify input file with --input flag",
-	"deprecation_notice": "In future major release, command will delete source files by default. New flag will be introduced, keep, that will allow to keep source files",
-	"description": "Split labels into separate files\nFinds all labels files and write each label to file named after label's fullName",
+	"description": [
+		"Splits labels into files with only one label",
+		"By default, this command will try to find files with labels in your project.",
+		"If some files weren't found:",
+		"- report issue in repository IF it was placed in standard location",
+		"- use input and output flags to specify your labels locations"
+	],
 	"done": "Enjoy!",
 	"error_fileDoesNotExist": "Specified file or default labels file (see --input flag help) does not exist",
 	"flag_input": "Input file, for example. \nIf not provicded, program will check if {{defaultProjectPath}}/main/default/labels/CustomLabels.labels-meta.xml exists and use it as input. \nIf file does not exist, error will be thrown",
 	"flag_output": "Output dir, by default it will be  force-app/main/default/labels)",
 	"flag_remove": "Remove input file after splitting",
-	"splitting": "Splitting labels"
+	"splitting": "Splitting labels",
+	"flag_keep_original": "Keep original files after splitting. Use with causion as this can cause problems during deployments (labels will be defined both in CustomLabels file and in split file)",
+	"example_standard": [
+		"To split labels and remove source files (in most cases CustomLabels.labels-meta.xml) file",
+		"    sfdx splitter:labels:split"
+	],
+	"example_keep_source_files": [
+		"To split labels and keep original file (I don't know why would you want to do this but who am I to stop you)",
+		"    sfdx splitter:labels:split --keep-original",
+		"or",
+		"    sfdx splitter:labels:split -k"
+	],
+	"example_custom_path": [
+		"To split labels file with custom location",
+		"    sfdx splitter:labels:split -i path/to/your/custom/file/CustomLabels.labels-meta.xml",
+		"or",
+		"    sfdx splitter:labels:split --input path/to/your/custom/file/CustomLabels.labels-meta.xml",
+		"This will create split files in same directory as file that you specified"
+	]
 }
