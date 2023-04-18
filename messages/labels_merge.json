@@ -1,9 +1,31 @@
 {
-	"deprecation_notice": "In future major release, command will delete source files by default. New flag will be introduced, keep, that will allow to keep source files",
-	"description": "Merge labels into single file\nSearches for all files with .labels-meta.xml extension and merges them into one",
+	"description": [
+		"Merge labels into single file",
+		"Searches for all files with .labels-meta.xml extension and merges them into one",
+		"If you find out that some labels are not picked up by this plugin:",
+		"- use flag '--input'",
+		"- report issue to developer of this package"
+	],
 	"done": "Merged",
 	"flag_output": "Output file, by default defaultProjectPath/main/default/labels/CustomLabels.labels-meta.xml",
 	"flag_input": "Folder with labels to merge",
 	"flag_remove": "Remove source files",
-	"spinnerText": "Merging labels"
+	"flag_keep_original": "Keep original files after merging. Use with caution as this can cause problems during deployments (labels will be defined both in CustomLabels file and in split file)",
+	"spinnerText": "Merging labels",
+	"example_simple": [
+		"To merge labels in default folders, use",
+		"    sfdx splitter:labels:merge"
+	],
+	"example_keep_original": [
+		"To merge labels and keep original files (this might be dangerous ",
+		"as it means that labels will be saved in 2 locations and SFDX will",
+		"deploy randomly selected version so I highly discourage using this ",
+		"example but you do you)",
+		"    sfdx splitter:labels:merge --keep-original"
+	],
+	"example_custom_dir": [
+		"To merge labels in custom direcotry, use this:",
+		"    sfdx splitter:labels:merge -i path/to/dir/with/split/labels"
+	],
+	"keep-original_warning": "Remember to remove split or full labels file before deploying as deployments with two versions of labels are unpredictable (AND not reported by SFDX)"
 }
