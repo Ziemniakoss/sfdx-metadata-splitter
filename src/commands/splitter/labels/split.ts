@@ -30,6 +30,7 @@ export default class SplitLabels extends SplittingCommand {
 				version: "4.0.0",
 			},
 			default: true,
+			hidden:true,
 			char: "r",
 		}),
 		"keep-original": flags.boolean({
@@ -39,9 +40,14 @@ export default class SplitLabels extends SplittingCommand {
 		}),
 		...FORMATTING_FLAGS,
 	};
+	public async run() {
+		if(this.flags["keep-original"]) {
+			this.ux.warn(messages.getMessage("keep-original_warning"))
+		}
+		return super.run();
+	}
 
 	public static examples = [messages.getMessage("example_standard"), messages.getMessage("example_keep_source_files"),
-
 		messages.getMessage("example_custom_path")
 	]
 
@@ -63,6 +69,5 @@ export default class SplitLabels extends SplittingCommand {
 
 	protected deleteAfterSplitting(): boolean {
 		return !this.flags["keep-original"]
-		return this.flags["remove-input-file"];
 	}
 }

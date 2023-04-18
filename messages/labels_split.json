@@ -22,15 +22,13 @@
 	],
 	"example_keep_source_files": [
 		"To split labels and keep original file (I don't know why would you want to do this but who am I to stop you)",
-		"    sfdx splitter:labels:split --keep-original",
-		"or",
-		"    sfdx splitter:labels:split -k"
+		"    sfdx splitter:labels:split -k # Or --keep-original for long flag names"
 	],
 	"example_custom_path": [
 		"To split labels file with custom location",
-		"    sfdx splitter:labels:split -i path/to/your/custom/file/CustomLabels.labels-meta.xml",
-		"or",
-		"    sfdx splitter:labels:split --input path/to/your/custom/file/CustomLabels.labels-meta.xml",
+		"    sfdx splitter:labels:split -i path/to/your/custom/file/CustomLabels.labels-meta.xml # or if you prefer longer flags, use --input ",
 		"This will create split files in same directory as file that you specified"
-	]
+	],
+	"keep-original_warning":
+		"Remeber to remove split or full labels file before deploying as deployments with two versions of labels are unpredictable (AND not reported by SFDX)"
 }
