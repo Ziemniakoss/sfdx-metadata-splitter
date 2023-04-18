@@ -12,3 +12,4 @@ sfdx-project.json
 /test/commands/hello/org.test.template.ts
 /test-project/
 /oclif.manifest.json
+yarn.lock
