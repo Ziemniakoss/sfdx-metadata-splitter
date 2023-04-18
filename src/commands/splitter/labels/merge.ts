@@ -8,6 +8,7 @@ import { getDefaultFolder } from "../../../utils/filesUtils";
 import XmlFormatter from "../../../utils/xmlFormatter";
 import LabelsMerger from "../../../mergers/LabelsMerger";
 import Merger from "../../../mergers/Merger";
+import FORMATTING_FLAGS from "../../../utils/formattingFlags";
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(PLUGIN_NAME, "labels_merge");
@@ -28,11 +29,30 @@ export default class MergeLabels extends MergingCommand {
 		remove: flags.boolean({
 			description: messages.getMessage("flag_remove"),
 			char: "r",
+			hidden: true,
+			deprecated: {
+				version: "4.0.0",
+				message:
+					"Since 4.0.0, labels merging command will automatically remove split labels files to prevent metadata duplication. If for some reason you want to keep them, use 'keep-original' flag",
+			},
 		}),
+		"keep-original": flags.boolean({
+			description: messages.getMessage("flag_keep_original"),
+		}),
+		...FORMATTING_FLAGS,
 	};
 
+	public static examples = [
+		messages.getMessage("example_simple"),
+		messages.getMessage("example_keep_original"),
+		messages.getMessage("example_custom_dir"),
+	];
+
 	async run() {
-		this.ux.warn(messages.getMessage("deprecation_notice"));
+		if (this.flags["keep-original"]) {
+			this.ux.warn(messages.getMessage("keep-original_warning"));
+		}
+
 		const merger = this.getMerger();
 		const dirsToMerge = await this.getInputDirs();
 
@@ -61,6 +81,11 @@ export default class MergeLabels extends MergingCommand {
 		}
 		return [];
 	}
+
+	protected deleteAfterSplitting(): boolean {
+		return !this.flags["keep-original"];
+	}
+
 	getDoneMessage(): string {
 		return messages.getMessage("done");
 	}

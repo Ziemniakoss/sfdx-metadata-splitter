@@ -29,6 +29,5 @@
 		"    sfdx splitter:labels:split -i path/to/your/custom/file/CustomLabels.labels-meta.xml # or if you prefer longer flags, use --input ",
 		"This will create split files in same directory as file that you specified"
 	],
-	"keep-original_warning":
-		"Remeber to remove split or full labels file before deploying as deployments with two versions of labels are unpredictable (AND not reported by SFDX)"
+	"keep-original_warning": "Remeber to remove split or full labels file before deploying as deployments with two versions of labels are unpredictable (AND not reported by SFDX)"
 }
